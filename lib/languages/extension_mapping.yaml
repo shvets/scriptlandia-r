@@ -1,0 +1,51 @@
+# extension_mapping.yaml 
+
+ant:        [ant, build.xml]
+
+beanshell:  [bsh]
+
+class:      [class]
+
+clojure:    [clj]
+
+etl:        [etl]
+
+fan:        [fan, pod]
+
+fortress:   [fss]
+
+freemarker: [ftl, freemarker]
+
+groovy:     [groovy]
+
+jaskell:    [jsl, jaskell]
+
+javascript: [js, javascript]
+
+jawk:       [jawk, awk]
+
+jelly:      [jelly]
+
+judo:       [judo]
+
+jython:     [py, python, jython]
+
+lolcode:    [lol, lcd]
+
+maven:      [mvn, maven, pom.xml]
+
+pnuts:      [pnut]
+
+ptilde:     [p7e, p7ei]
+
+jruby:       [rb, ruby]
+
+scala:      [scala]
+
+sleep:      [sl, sleep]
+
+tcl:        [tcl]
+
+velocity:   [vm, velocity]
+
+yoix:       [yx]

@@ -1,0 +1,6 @@
+jvmargs:
+
+artifacts:
+  sleep:  sleep:sleep:jar:2.1
+
+start_class: sleep.console.TextConsole

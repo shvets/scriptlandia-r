@@ -1,0 +1,16 @@
+main {
+    String[] testData = {
+        "blah blah </html>     ",  // ok
+        "blah blah blah </HTML>",  // ok
+        "blah </html> </html>  ",  // ok for now
+        "blah blah </html >    ",  // let's flag it, a little ugly!
+        "blah blah </body>     ",  // missing!
+    };
+
+    Pattern tag = "</" + ("html" | "HTML") + '>';
+    Pattern sp = '[ \t\r\n]';
+    Pattern regex = *any + tag + *sp + eof;
+
+    for (int i = 0; i < testData.length; i++)
+        stdout.println(testData[i] =~ regex ? "GOOD" : "BAD");
+}

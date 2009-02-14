@@ -1,0 +1,40 @@
+//
+// Simple thread example that shows how you queue functions up to be
+// run by a thread. Also illustrates use of the thread's interrupted
+// and alive fields.
+//
+
+import yoix.*.*;
+
+f() {
+    while (TRUE) {
+	fprintf(stderr, "Function f in thread %s\n", this.name);
+	sleep(2);
+    }
+}
+
+g() {
+    while (TRUE) {
+	fprintf(stderr, "Function g in thread %s\n", this.name);
+	sleep(2);
+    }
+}
+
+Thread t;
+t.priority = 6;
+
+t.queue(f);
+t.queue(g);
+sleep(10);
+t.interrupted = TRUE;
+sleep(10);
+t.interrupted = TRUE;
+sleep(10);
+t.queue(f);
+sleep(10);
+t.alive = FALSE;
+sleep(10);
+t.queue(g);
+sleep(5);
+exit(0);
+

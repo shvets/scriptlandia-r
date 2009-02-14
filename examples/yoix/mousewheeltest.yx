@@ -1,0 +1,59 @@
+//
+// Simple spline doodler...
+//
+
+import yoix.*.*;
+
+Array control[10];
+int   points;
+
+JFrame f = {
+    Color background = Color.white;
+
+    Dimension size = {
+	double width = 10*72;
+	double height = 8*72;
+    };
+
+    Array layout = {
+	new JLabel {
+String text = "Now is the time for all good men";
+Color  background = Color.yellow;
+
+	    XXXmouseWheelMoved(Event e) {
+		fprintf(stderr, "JCanvas: mouseWheelMoved: e=%.2O\n", e);
+	    }
+	}, NORTH,
+
+	new JLabel {
+String text = "to come to the aid";
+Color  background = Color.red;
+
+	    mouseWheelMoved(Event e) {
+		fprintf(stderr, "JCanvas: mouseWheelMoved: e=%.2O\n", e);
+	    }
+	}, WEST,
+
+	new JComboBox {
+	    String tag = "$_combobox";
+	    int    selected = 2;
+
+	    Array items = {
+		"Now", "is the",
+		"time", "for all",
+		"good men", "to",
+		"come", "to the aid",
+	    };
+
+	    mouseWheelMoved(Event e) {
+		fprintf(stderr, "JComboBox: mouseWheelMoved: e=%.2O\n", e);
+	    }
+	}, EAST,
+    };
+
+    mouseWheelMoved(Event e) {
+	fprintf(stderr, "JDialog: mouseWheelMoved: e=%.2O\n", e);
+    }
+};
+
+f.visible = TRUE;

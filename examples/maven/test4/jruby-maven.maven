@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>test</groupId>
+  <artifactId>test</artifactId>
+  <version>1.0</version>
+
+  <name>Test</name>
+
+  <build>
+    <finalName>test</finalName>
+
+    <defaultGoal>jruby:run</defaultGoal>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jruby-maven-plugin</artifactId>
+        <version>1.0-beta-3</version>
+  
+        <configuration>
+          <ruby>require 'java'; $LOAD_PATH.each { |p| puts p }</ruby>
+          <!--script>src/main/ruby/find_todo.rb</script-->
+          <libraryPaths>
+            <libraryPath>/usr/local/lib/site_ruby/1.8</libraryPath>
+          </libraryPaths>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+ 
+</project>
+

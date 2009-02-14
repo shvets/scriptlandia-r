@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<jelly xmlns="jelly:core" xmlns:a="jelly:ant" trim="false">
+
+<forEach var="i" begin="1" end="3">
+  <file name="test_${i}.xml">
+    <test id="${id}">
+      a test
+   </test>
+  </file>
+</forEach>
+
+<forEach var="i" begin="1" end="3">
+  <a:delete file="test_${i}.xml"/>
+</forEach>
+
+</jelly>

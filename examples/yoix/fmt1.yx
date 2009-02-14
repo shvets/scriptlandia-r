@@ -1,0 +1,24 @@
+import yoix.*.*;
+
+str = "Constructs a string buffer so that it represents the same sequence of characters as the string argument; in other words, the initial contents of the string buffer is a copy of the argument string. The initial capacity of the string buffer is 16 plus the length of the string argument.";
+
+printf("A=========\n%s\n", str);
+printf("B=========\n%s\n", fmt(str));
+
+str = "\n\
+     Constructs a string buffer so that it represents the same sequence of characters as the string argument;\r\n\
+in other words, the initial contents of the string buffer is a copy of the argument string.\n\
+The initial capacity of the string buffer is 16 plus the length of the string argument.\n";
+
+printf("A=========\n%s\n", str);
+printf("B=========\n%s\n", fmt(str));
+
+
+str = "\n\
+     Constructs a string buffer so that it represents the same sequence of characters as the string argument;\n\
+in other words, the initial             contents of the string buffer is a copy of the argument string.\n\n\n\
+The initial capacity of the string buffer is 16 plus the length of the string argument.\n";
+
+printf("A=========\n%s\n", str);
+printf("B=========\n%s\n", fmt(str));
+printf("C=========\n%s\n", fmt(str, true));

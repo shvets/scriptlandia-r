@@ -1,0 +1,33 @@
+java_home:
+  c:/Java/jdk1.5.0
+
+repositories:
+
+  # customize user local maven2 repository location
+  local: c:/Work/maven-repository
+
+  # prefer the local or nearest mirrors
+  remote: 
+    - file://c:/Work/maven-repository-accelerator
+    - http://scriptlandia-repository.googlecode.com/svn/trunk/languages
+    - http://scriptlandia-repository.googlecode.com/svn/trunk/tools
+    - http://repository.springsource.com/maven/bundles/release
+    - http://repository.springsource.com/maven/bundles/external
+    - http://repository.springsource.com/maven/libraries/release
+    - http://repository.springsource.com/maven/libraries/external
+    - http://repository.jboss.com/maven2
+    - http://repo.mergere.com/maven2
+    - http://repo1.maven.org/maven2
+    - http://repo1.maven.org/maven-spring
+    - http://dist.codehaus.org
+    - http://repository.codehaus.org
+    - http://download.java.net/maven/2
+    - https://maven-repository.dev.java.net/nonav/repository
+    - http://download.java.net/maven/2
+    - http://jyaml.sourceforge.net/m2-repo
+    - http://dist.codehaus.org/mule/dependencies/maven2
+    - http://scala-tools.org/repo-releases
+
+#options:
+#  proxy:
+#    http: ''

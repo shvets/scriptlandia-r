@@ -1,0 +1,35 @@
+<profiles>
+  <profile>
+    <id>env-dev</id>
+    <properties>
+      <module>super</module>
+   </properties>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+  </profile>
+
+  <profile>
+    <id>env-test</id>
+    <properties>
+      <css.pref>grey.css</css.pref>
+      <module>public</module>
+    </properties>
+
+    <activation>
+      <activeByDefault>false</activeByDefault>
+    </activation>
+  </profile>
+
+  <profile>
+    <id>env-prod</id>
+    <properties>
+      <css.pref>red.css</css.pref>
+   </properties>
+
+    <activation>
+      <activeByDefault>false</activeByDefault>
+    </activation>
+  </profile>
+
+</profiles>

@@ -1,0 +1,1 @@
+print("java version: " + System.getProperty("java.version"));

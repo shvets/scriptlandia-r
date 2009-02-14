@@ -1,0 +1,5 @@
+(def frame (new javax.swing.JFrame))
+(def button (new javax.swing.JButton "Press me"))
+(.. frame (getContentPane) (add button))
+(. frame (pack))
+(. frame (show)) 

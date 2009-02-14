@@ -1,0 +1,61 @@
+<!-- test1.etl -->
+
+<!DOCTYPE etl SYSTEM "http://scriptella.javaforge.com/dtd/etl.dtd">
+
+<etl>
+  <description>
+    Test for access to database
+  </description>
+
+  <properties>
+    <include href="etl.properties"/>
+  </properties>
+
+    <!--Set up a connection to janino compiler.-->
+  <connection id="janino" driver="janino"
+              classpath="${repository.home}/janino/janino/2.4.3/janino-2.4.3.jar"/>
+
+  <query connection-id="janino">
+    /*import java.util.Properties;
+    import java.io.FileInputStream;
+    import org.sf.scriptlandia.ScriptlandiaHelper;
+
+    Properties props = new Properties();
+    props.load(new FileInputStream(System.getProperty("user.home") + "/.scriptlandia"));
+
+    ScriptlandiaHelper.resolveDependencies("../get-libraries.maven");*/
+  </query>
+
+  <connection id="test" 
+              driver="${driver}" url="${url}" user="${user}" password="${password}" 
+              classpath="${repository.home}/hsqldb/hsqldb/1.8.0.1/hsqldb-1.8.0.1.jar"/>
+
+  <connection id="velocity" driver="velocity" url="report.txt" 
+              classpath="${repository.home}/velocity/velocity/1.5/velocity-1.5.jar;${repository.home}/commons-collections/commons-collections/3.2/commons-collections-3.2.jar;${repository.home}/commons-lang/commons-lang/2.3/commons-lang-2.3.jar"/>
+
+  <script connection-id="test">
+      DROP TABLE User IF EXISTS; 
+      CREATE TABLE User (
+          name VARCHAR(100)
+      );
+      INSERT INTO User VALUES ('name1');
+      INSERT INTO User VALUES ('name2');
+  </script>
+
+  <script connection-id="velocity">
+    Results:
+  </script>
+
+  <query connection-id="test">
+    select * from user;
+
+    <script connection-id="velocity">
+      ${name}
+    </script>
+  </query>
+
+  <script connection-id="test"><!--Gracefully shutdown HSQLDB-->
+    COMMIT;SHUTDOWN;
+  </script>
+
+</etl>

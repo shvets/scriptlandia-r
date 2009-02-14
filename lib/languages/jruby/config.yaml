@@ -1,0 +1,6 @@
+jvmargs:
+
+artifacts:
+  jruby: org.jruby:jruby:jar:1.1.6
+
+start_class: org.jruby.Main

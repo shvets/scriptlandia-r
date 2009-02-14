@@ -1,0 +1,99 @@
+#
+# Simple Sleep Based IRC Client... *very simple*
+#
+
+# Variables (edit these):
+
+$me      = '';
+$channel = '#jIRCii';
+$server  = 'irc.prison.net';
+
+# begin the script...
+
+if ($me eq "")
+{
+   $me = "SleepIRC" . [System currentTimeMillis];
+}
+
+import java.awt.*;
+import javax.swing.*;
+
+
+$window = [new JFrame:"Sleep IRC Client"];
+[$window setDefaultCloseOperation: [JFrame EXIT_ON_CLOSE]];
+[$window setSize:640, 480];
+
+[[$window getContentPane] setLayout:[new BorderLayout]];
+
+$display = [new JEditorPane:"text/html", ''];
+[$display setEditable:0];
+
+#
+# stuff for handling user input..
+#
+
+$field   = [new JTextField];
+
+sub user_input
+{
+   $text = [$field getText];
+   [$field setText:""];
+
+   echo("$me $+ : $text");
+   println($socket, "PRIVMSG $channel : $+ $text");
+}
+
+[$field addActionListener:&user_input];
+
+#
+# stuff for displaying irc messages
+#
+
+[[$window getContentPane] add:[new JScrollPane:$display], [BorderLayout CENTER]];
+[[$window getContentPane] add: $field, [BorderLayout SOUTH] ];
+
+sub echo
+{
+   push(@text, $1);
+   [$display setText:'<html><body bgcolor="black" fgcolor="white"><font color="gray">' . join('<br>', @text) . '</font></body></html>'];
+}
+
+#
+# show the window, why not?
+#
+
+[$window show];
+[$field requestFocus];
+
+echo("Welcome to Raffi's IRC Client");
+
+
+#
+# stuff for the socket connection...
+# 
+
+$socket = connect($server, 6667);
+println($socket, "USER sleep sleep sleep :Sleep IRC Client");
+println($socket, "NICK $me");
+println($socket, "JOIN $channel");
+
+sub server_read
+{
+   if ($2 ismatch ':(.*?)!.*?@.*? PRIVMSG (.*?) :(.*)')
+   {
+      ($nick, $channel, $text) = matched();
+      echo("<font color=\"red\"> $+ $nick $+ </font>: $text");
+   }
+   else if ($2 ismatch ": $+ $me $+ !.*?@.*? JOIN : $+ $channel")
+   {
+      echo("Welcome to $channel on $server ...");
+   }
+   else if ($2 ismatch ':.*? 353 .*? = (.*?) :(.*)')
+   {
+      ($channel, $users) = matched();
+      @users = sorta(split(" ", replace(lc($users), '[@|+]', '')));
+      echo("Users present on $channel $+ : <font color=\"blue\">" . join(" ", @users) . "</font>");
+   }
+}
+
+read($socket, &server_read);

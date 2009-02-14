@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:ant" trim="false">
+  Lets start by calling the echo task:
+
+  <!-- this example attempts to invoke some Ant tasks -->
+  <echo message="Hello from inside Jelly!!!"/>
+
+  <echo>
+    Java home is ${java.home}
+  </echo>
+
+  <property name="debug" value="false"/>
+  <property name="optimize" value="false"/>
+  <property name="deprecation" value="false"/>
+
+  <property name="src.dir" value="."/>
+  <property name="destination.dir" value="classes"/>
+  <property name="files.mask" value="Test.java"/>
+
+  <property name="archive.name" value="Test.jar"/>
+
+  <mkdir dir="${destination.dir}"/>
+
+  <javac destdir="${destination.dir}"
+         includeAntRuntime="false"
+         debug="${debug}"
+         optimize="${optimize}"
+         deprecation ="${deprecation}">
+      <src path="${src.dir}"/>
+      <include name ="${files.mask}"/>
+  </javac>
+
+  <java classname="Test" fork="yes">
+    <classpath>
+      <pathelement location="${destination.dir}" />
+    </classpath>
+
+    <arg line="start"/>
+  </java>
+
+ <jar destfile="${archive.name}">
+   <zipfileset dir="${src.dir}" prefix="META-INF">
+      <include name="default.ant"/>
+    </zipfileset>
+
+   <fileset dir="${destination.dir}">
+      <include name="**/*.class"/>
+    </fileset>
+  </jar>
+
+  <delete dir="${destination.dir}"/>
+
+   End.
+</j:jelly>

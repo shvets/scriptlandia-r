@@ -1,0 +1,24 @@
+// context.bsh
+
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.Template;
+import org.apache.velocity.app.Velocity;
+
+import org.jdom.Document;
+import org.jdom.input.SAXBuilder;
+
+String repositoryHome = System.getProperty("repository.home");
+
+import org.sf.scriptlandia.ScriptlandiaHelper;
+
+ScriptlandiaHelper.resolveDependencies("jdom", "jdom", "1.0");
+
+SAXBuilder builder = new SAXBuilder(/*"org.apache.xerces.parsers.SAXParser"*/);
+
+Document root = builder.build("test.xml");
+
+VelocityContext context = new VelocityContext();
+
+context.put("root", root);
+
+return context;

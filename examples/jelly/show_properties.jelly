@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<j:jelly xmlns:j="jelly:core" trim="false">
+
+<html>
+  <body>
+    <h1>System properties</h1>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+
+      <j:forEach var="iter" items="${systemScope}">
+        <tr>
+          <td>${iter.key}</td>
+          <td>${iter.value}</td>
+        </tr>
+      </j:forEach>
+    </table>
+
+  </body>
+
+</html>
+
+</j:jelly>

@@ -1,0 +1,8 @@
+import org.apache.velocity.VelocityContext;
+
+VelocityContext context = new VelocityContext();
+
+context.put("name", "Velocity");
+context.put("project", "Jakarta");
+
+return context;

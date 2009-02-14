@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<project name="FreeMarker-FAQ" default="generate" basedir=".">
+
+  <script language="beanshell">
+    org.sf.scriptlandia.ScriptlandiaHelper.resolveDependencies("freemarker", "freemarker", "2.3.9");
+  </script>
+
+  <taskdef name="freemarker" classname="freemarker.ext.ant.FreemarkerXmlTask"/>
+
+  <target name="generate">
+    <mkdir dir="html" />
+        
+    <freemarker
+      basedir="xml"
+      destdir="html"
+      includes="**/*.xml"
+      template="faq2html.ftl"
+    />
+  </target>
+    
+</project>

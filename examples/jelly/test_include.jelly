@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<j:jelly xmlns:j="jelly:core">
+
+  <j:include uri="hello_world.jelly"/>  
+ 
+</j:jelly>

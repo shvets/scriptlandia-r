@@ -1,0 +1,1 @@
+(. (. java.lang.System out) (println (new java.util.Date) )) 

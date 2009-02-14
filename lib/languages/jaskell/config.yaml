@@ -1,0 +1,9 @@
+jvmargs:
+
+artifacts:
+  jaskell: jaskell:jaskell:jar:1.0
+  jfunutil: jaskell:jfunutil:jar:1.0
+  jparsec: jaskell:jparsec:jar:1.0
+  commons-lang: commons-lang:commons-lang:jar:2.1
+
+start_class: jfun.jaskell.shell.Shell

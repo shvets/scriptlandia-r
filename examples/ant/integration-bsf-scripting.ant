@@ -1,0 +1,116 @@
+<!-- integration-bsf-scripting.ant -->
+
+<project name="integration-bsf-scripting.antlet" default="all" basedir=".">
+
+  <scriptdef name="configure-language" language="beanshell">
+    <attribute name="manager"/>
+    <attribute name="name"/>
+
+    <![CDATA[
+      import org.sf.scriptlandia.ScriptlandiaHelper;
+
+      String name = attributes.get("name");
+      String manager = attributes.get("manager");
+
+      ScriptlandiaHelper.resolveLanguageDependencies(name, manager);
+    ]]>
+  </scriptdef>
+
+  <target name="all">
+    <antcall target="ant"/>
+    <antcall target="bsh"/>
+    <antcall target="javascript"/>
+    <antcall target="groovy"/>
+    <antcall target="jscheme"/>
+    <antcall target="jaskell"/>
+    <antcall target="jelly"/>
+    <antcall target="jruby"/>
+  </target>
+
+  <target name="ant">
+    <echo>
+      Hello, World from Ant echo!
+    </echo>
+  </target>
+
+  <target name="bsh">
+    <script language="beanshell">
+      System.out.println("Hello, World from BeanShell!");
+    </script>
+  </target>
+
+  <target name="javascript">
+    <configure-language name="javascript" manager="bsf"/>
+
+    <script language="javascript">
+      importPackage(Packages.java.lang);
+
+      System.out.println("Hello, World from javascript!");
+    </script>
+  </target>
+
+  <target name="groovy">
+    <configure-language name="groovy" manager="bsf"/>
+
+    <script language="groovy">
+      println("Hello world from Groovy!")
+    </script>
+  </target>
+
+  <target name="jruby">
+    <configure-language name="jruby" manager="bsf"/>
+
+    <script language="ruby">
+      require 'java'
+
+      include_class "java.util.Locale"
+
+      print "Hello, World from JRuby!. My locale is: ", Locale.getDefault()
+    </script>
+  </target>
+
+  <target name="jelly">
+    <configure-language name="jelly" manager="bsf"/>
+
+    <taskdef name="jelly" classname="org.apache.commons.jelly.task.JellyTask">
+      <classpath>
+        <fileset dir="${repository.home}/commons-jelly/commons-jelly-tags-ant/1.1">
+          <include name="*.jar"/>
+        </fileset>
+      </classpath>
+    </taskdef>
+
+    <jelly script="../jelly/hello_world.jelly"/>
+  </target>
+
+  <target name="scala">
+    <script language="scala">
+      Console.println("Hello, world from Scala!")
+     </script>
+  </target>
+
+  <target name="jscheme">
+    <configure-language name="jscheme" manager="bsf"/>
+
+    <script language="jscheme">
+      (display "Hello World from JScheme!") (newline)
+    </script>
+  </target>
+
+  <target name="jaskell">
+    <configure-language name="jaskell" manager="bsf"/>
+
+    <script language="jaskell">
+      print "Hello World from Jaskell!"
+    </script>
+  </target>
+
+  <target name="javafx">
+    <configure-language name="javafx" manager="bsf"/>
+
+    <script language="javafx">
+      //print "Hello World from Jaskell!"
+    </script>
+  </target>
+
+</project>

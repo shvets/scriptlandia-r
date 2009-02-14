@@ -1,0 +1,33 @@
+$$<
+string interpolation test:
+${"nested interpolated string:\r\n${$$<1 ${myvar+\"==\"+myvar+\"==\"+myvar} 1>$$}"}
+f{x=0} == ${assert(6, f{x=0})}
+f{x=1,b=1,a=null} == ${assert(6,f{x=1,b=1})}
+f{x=2,a=10,b=10,c=10} == ${assert(30,f{x=2,a=10,b=10,c=10})}
+>$$+(
+{firstname1="tom"; lastname="cruz"; } `(extend "firstname") "jack"
+`extends {firstname="hama";middlename="what";fullname=this.firstname+" "+isnull (this.lastname) ""}
+//`extends (java.util.Date.new[]) `extends {fullname=this.firstname+" "+this.lastname; firstname="ben"}
+)
+//.{getMonth,fullname,firstname} `subtuple ["getMonth","fullname",<<<.lastname.>>>]
++"
+"+table+".age = " + assert 10 (table.age)+"
+"+table+"@age = " +assert 10 (table@"age")
+
+where
+	extend_firstname = extend "firstname";
+	table = assoc[1, "one",2,"two",3,"three","time","10:00:00","age",10];
+	std = jaskell `includes jaskell.tuple `includes jaskell.prelude.{flip,assoc,assert};
+	assoc = std.assoc;
+	extend a b= std.put b a;
+	extends = std.extends;
+	subtuple = std.subtuple;
+	isnull x v = if x==null then v else x;
+	null = std.null;
+	includes = jaskell.tuple.includes;
+	assert = std.assert;
+	myvar="my variable";
+	default = jaskell.prelude.default;
+	f args = default args {a=1,b=2,c=this.x+3} $
+	  a+b+c;
+end

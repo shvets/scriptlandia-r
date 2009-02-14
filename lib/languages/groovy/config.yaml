@@ -1,0 +1,7 @@
+jvmargs:
+
+artifacts:
+  groovy-all: org.codehaus.groovy:groovy-all:jar:1.5.6
+  commons: commons-cli:commons-cli:jar:1.1
+
+start_class: groovy.ui.GroovyMain

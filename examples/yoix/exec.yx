@@ -1,0 +1,290 @@
+//
+// Simple input and error dialogs that we use to collect a command line,
+// run it, and report errors. Lots of obvious improvements, like adding
+// a TextTerm to display stdin, stdout, and stderr while the program is
+// running.
+//
+// Originally was designed for executing yoix on Windows and Macs, but
+// it works everywhere and now can be used to execute any command. Now
+// uses argv[1], if it exists, as the program to run with the arguments
+// collected from the Dialog's TextField appended to that program. The
+// full command line must be entered in the Dialog if there's no argv[1].
+//
+
+import yoix.*.*;
+
+Process exec_process;
+String  exec_command;
+String  exec_errors;
+
+JDialog arguments = {
+    GridBagLayout layoutmanager;
+    Dimension     size = NULL;
+    int           modal = TRUE;
+
+    Array layout = {
+	new JCanvas {
+	    Dimension size = {
+		double width = 72/4;
+		double height = 72/16;
+	    };
+	},
+	new GridBagConstraints {
+	    int gridx = 0;
+	    int gridy = 0;
+	},
+
+	new JCanvas {
+	    Dimension size = {
+		double width = 72/4;
+		double height = 72/16;
+	    };
+	},
+	new GridBagConstraints {
+	    int gridx = 10;
+	    int gridy = 0;
+	},
+
+	new JLabel {
+	    String text = "Yoix Exec";
+	    String font = "Helvetica-bold-14";
+	    Color  foreground = Color.blue;
+	    int    alignment = CENTER;
+	},
+	new GridBagConstraints {
+	    int gridx = 3;
+	    int gridy = 2;
+	    int gridwidth = 5;
+	    int fill = HORIZONTAL;
+	},
+
+	new JLabel {
+	    String text = (argc > 1) ? "Arguments: " : "Command: ";
+	    String font = "Helvetica-bold-12";
+	    int    alignment = RIGHT;
+	},
+	new GridBagConstraints {
+	    int gridx = 3;
+	    int gridy = 3;
+	    int gridwidth = 1;
+	},
+
+	new JTextField {
+	    String tag = "$_command";
+	    String font = "Helvetica-bold-12";
+	    Color  background = Color.white;
+	    int    columns = 50;
+	    int    edit = TRUE;
+	},
+	new GridBagConstraints {
+	    int gridx = 4;
+	    int gridy = 3;
+	    int gridwidth = 4;
+	    int weightx = 100;
+	    int weighty = 100;
+	    int fill = BOTH;
+	},
+
+	new JPanel {
+	    GridLayout layoutmanager;
+	    Array layout = {
+		new JButton {
+		    String text = "Execute";
+
+		    actionPerformed(e) {
+			root.SetVisible(FALSE);
+		    }
+		},
+		new JButton {
+		    String text = "Cancel";
+
+		    actionPerformed(e) {
+			exit(0);
+		    }
+		},
+		new JButton {
+		    String text = "Browse...";
+
+		    actionPerformed(e) {
+			browse.SetVisible(TRUE);
+			if (browse.file != NULL)
+			    arguments.components.$_command.text = yoixPath(browse.file);
+		    }
+		},
+	    };
+	},
+	new GridBagConstraints {
+	    int gridx = 3;
+	    int gridy = 9;
+	    int gridwidth = 5;
+	    int weightx = 100;
+
+	    Insets insets = {
+		int top = 72/8;
+		int bottom = 72/8;
+	    };
+	},
+    };
+
+    //
+    // Support functions
+    //
+
+    SetVisible(state) {
+	Point location;
+	Array args = &state;
+
+	if (state) {
+	    location.x = (VM.screen.width - this.size.width)/2;
+	    location.y = (VM.screen.height - this.size.height)/2 - 72;
+	    this.location = location;
+	}
+	this.visible = state;
+    }
+};
+
+JDialog error = {
+    Dimension size = NULL;
+    int       modal = TRUE;
+
+    GridBagLayout layoutmanager;
+
+    Array layout = {
+	new Canvas {
+	    Dimension size = {
+		double width = 72/4;
+		double height = 72/16;
+	    };
+	},
+	new GridBagConstraints {
+	    int gridx = 0;
+	    int gridy = 0;
+	},
+
+	new Canvas {
+	    Dimension size = {
+		double width = 72/4;
+		double height = 72/16;
+	    };
+	},
+	new GridBagConstraints {
+	    int gridx = 10;
+	    int gridy = 0;
+	},
+
+	new JLabel {
+	    String text = "Exec Error";
+	    String font = "Helvetica-bold-14";
+	    Color  foreground = Color.red;
+	    int    alignment = CENTER;
+	},
+	new GridBagConstraints {
+	    int gridx = 3;
+	    int gridy = 2;
+	    int gridwidth = 5;
+	    int fill = HORIZONTAL;
+	},
+
+	new JTextArea {
+	    String tag = "$_message";
+	    String font = "Helvetica-bold-12";
+	    Color  background = Color.white;
+	    int    scroll = NONE;
+	    int    columns = 50;
+	    int    rows = 3;
+	    int    edit = FALSE;
+	},
+	new GridBagConstraints {
+	    int gridx = 4;
+	    int gridy = 3;
+	    int gridwidth = 4;
+	    int weightx = 100;
+	    int weighty = 100;
+	    int fill = BOTH;
+	},
+
+	new JButton {
+	    String text = "Dismiss";
+
+	    actionPerformed(e) {
+		root.SetVisible(FALSE, NULL);
+	    }
+	},
+	new GridBagConstraints {
+	    int gridx = 3;
+	    int gridy = 9;
+	    int gridwidth = 5;
+	    int weightx = 100;
+
+	    Insets insets = {
+		int top = 72/8;
+		int bottom = 72/8;
+	    };
+	},
+    };
+
+    //
+    // Support functions
+    //
+
+    SetVisible(state, message) {
+	Point location;
+	Array args = &state;
+
+	if (state) {
+	    location.x = (VM.screen.width - this.size.width)/2;
+	    location.y = (VM.screen.height - this.size.height)/2 - 72;
+	    this.location = location;
+	    this.components.$_message.text = message;
+	}
+	this.visible = state;
+    }
+};
+
+JDialog browse = {
+    Dimension size = NULL;
+    String    title = "Select a Yoix Script File";
+    String    file = NULL;
+    int       initialized = FALSE;
+    int       modal = TRUE;
+
+    Array layout = {
+	new JFileChooser {
+	    int mode = LOAD;
+
+	    actionPerformed(e) {
+		if (e.command === "ApproveSelection")
+		    root.file = file;
+		else root.file = NULL;
+		root.SetVisible(FALSE);
+	    }
+	},
+    };
+
+    SetVisible(int state) {
+	Point location;
+
+	if (!initialized) {
+	    initialized = TRUE;
+	    location.x = (VM.screen.width - this.size.width)/2;
+	    location.y = (VM.screen.height - this.size.height)/2 - 72.0;
+	    this.location = location;
+	}
+	this.visible = state;
+    }
+};
+
+arguments.SetVisible(TRUE);
+exec_command = trim(arguments.components.$_command.text);
+
+if (exec_command@length > 0) {
+    exec_process.command = (argc > 1 ? argv[1] : "") + " " + exec_command;
+    exec_process.alive = TRUE;
+    waitFor(exec_process);
+    exec_errors = readStream(exec_process.error);
+    if (exec_errors@length > 0)
+	error.SetVisible(TRUE, exec_errors);
+} else error.SetVisible(TRUE, argv[0] + ": nothing to execute - quitting");
+
+exit(exec_process.exitvalue);
+

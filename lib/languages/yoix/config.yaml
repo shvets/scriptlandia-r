@@ -1,0 +1,6 @@
+jvmargs:
+
+artifacts:
+  yoix: att.research:yoix:jar:2.1.10
+
+start_class: att.research.yoix.YoixMain

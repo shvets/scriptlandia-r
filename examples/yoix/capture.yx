@@ -1,0 +1,102 @@
+import yoix.*.*;
+
+Image img = captureScreen(); 
+
+JFrame f = {
+    Dimension size = { int width = 72 * 10; int height = 72 * 5; };
+    BorderLayout layoutmanager;
+    int visible = TRUE;
+    int border = 72/16;
+
+    Array layout = {
+        new JScrollPane {
+            String tag = "$_pane";
+            int    scroll = AS_NEEDED;
+
+            Array layout = {
+                new JPanel {
+		    String tag = "$_image";
+		    Image  backgroundimage = img;
+		    int backgroundhints = SCALE_NONE;
+                    Dimension preferredsize = img.size;
+		},
+	    };
+        },
+	CENTER,
+	new JPanel {
+	    FlowLayout layoutmanager;
+
+	    Array layout = {
+		new JButton {
+		    String text = "Capture Screen";
+		    int    mnemonic = KeyCode.VK_S;
+		    
+		    actionPerformed(e) {
+			img = captureScreen();
+			root.components.$_image.preferredsize = img.size;
+			root.components.$_image.size = img.size;
+			root.components.$_image.backgroundimage = img;
+		    }
+		},
+		new JButton {
+		    String text = "Capture Frame";
+		    int    mnemonic = KeyCode.VK_F;
+		    
+		    actionPerformed(e) {
+			img = captureScreen(root);
+			root.components.$_image.preferredsize = img.size;
+			root.components.$_image.size = img.size;
+			root.components.$_image.backgroundimage = img;
+		    }
+		},
+		new JButton {
+		    String text = "Capture Rectangle";
+		    int    mnemonic = KeyCode.VK_R;
+		    
+		    actionPerformed(e) {
+			img = captureScreen(new Rectangle{
+			    int x = random() * (VM.screen.width - 288);
+			    int y = random() * (VM.screen.height - 288);
+			    int width = 288;
+			    int height = 288;
+			});
+			root.components.$_image.preferredsize = img.size;
+			root.components.$_image.size = img.size;
+			root.components.$_image.backgroundimage = img;
+		    }
+		},
+		new JButton {
+		    String text = "Capture Image Panel";
+		    int    mnemonic = KeyCode.VK_I;
+		    
+		    actionPerformed(e) {
+			img = captureScreen(root.components.$_image);
+			root.components.$_image.preferredsize = img.size;
+			root.components.$_image.size = img.size;
+			root.components.$_image.backgroundimage = img;
+		    }
+		},
+		new JButton {
+		    String text = "Capture This!";
+		    int    mnemonic = KeyCode.VK_C;
+		    
+		    actionPerformed(e) {
+			img = captureScreen(this);
+			root.components.$_image.preferredsize = img.size;
+			root.components.$_image.size = img.size;
+			root.components.$_image.backgroundimage = img;
+		    }
+		},
+		new JButton {
+		    String text = "Quit";
+		    int    mnemonic = KeyCode.VK_Q;
+		    
+		    actionPerformed(e) {
+			exit(0);
+		    }
+		},
+	    };
+	},
+	SOUTH,
+    };
+};

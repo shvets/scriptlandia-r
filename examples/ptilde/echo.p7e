@@ -1,0 +1,17 @@
+//
+// This script was developed, and is owned, by Finite Grammars, Inc.,
+// for use in the public domain with its licensed software product(s).
+// © Copyright Finite Grammars, Inc., 2007.
+//
+//**************************** IMPORTANT ***********************************
+//
+// This script is used to implement the "echo" command in the shell.  Do
+// not modify!
+//
+//**************************************************************************
+
+main {
+	for (int i = 0; i < stdarg.length; i++)
+		stdout << stdarg[i] << (i < stdarg.length-1 ? " " : "");
+	stdout.println();
+}

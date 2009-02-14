@@ -1,0 +1,147 @@
+<!-- integration-javax-scripting.ant -->
+
+<project name="integration-javax-scripting.antlet" default="all" basedir=".">
+
+  <scriptdef name="configure-language" language="beanshell">
+    <attribute name="manager"/>
+    <attribute name="name"/>
+
+    <![CDATA[
+      import org.sf.scriptlandia.ScriptlandiaHelper;
+
+      String name = attributes.get("name");
+      String manager = attributes.get("manager");
+
+      ScriptlandiaHelper.resolveLanguageDependencies(name, manager);
+    ]]>
+  </scriptdef>
+
+  <target name="all">
+    <antcall target="javascript"/>
+    <antcall target="judo"/>
+    <antcall target="bsh"/>
+    <antcall target="groovy"/>
+    <antcall target="jruby"/>
+    <antcall target="jelly"/>
+    <antcall target="jaskell"/>
+    <antcall target="sleep"/>
+
+    <!--antcall target="javafx"/-->
+    <!--antcall target="scala"/-->
+  </target>
+
+  <target name="bsh">
+    <configure-language name="bsh" manager="javax"/>
+
+    <script language="beanshell" manager="javax">
+      System.out.println("Hello, World from BeanShell!");
+    </script>
+  </target>
+
+  <target name="javascript">
+    <configure-language name="javascript" manager="javax"/>
+
+    <script language="javascript" manager="javax">
+      importPackage(Packages.java.lang);
+
+      System.out.println("Hello, World from javascript!");
+    </script>
+  </target>
+
+  <target name="groovy">
+    <configure-language name="groovy" manager="javax"/>
+
+    <script language="groovy" manager="javax">
+      println("Hello world from Groovy!")
+    </script>
+  </target>
+
+  <target name="jruby">
+    <configure-language name="jruby" manager="javax"/>
+
+    <script language="ruby" manager="javax">
+      require 'java'
+
+      include_class "java.util.Locale"
+
+      print "Hello, World from JRuby!. My locale is: ", Locale.getDefault()
+    </script>
+  </target>
+
+  <target name="jelly">
+    <configure-language name="jelly" manager="javax"/>
+
+    <script language="jelly" manager="javax" src="../jelly/hello_world.jelly"/>
+  </target>
+
+  <target name="jaskell">
+    <configure-language name="jaskell" manager="javax"/>
+
+    <script language="jaskell" manager="javax">
+      print "Hello World from Jaskell!"
+    </script>
+  </target>
+
+  <target name="judo">
+    <configure-language name="judo" manager="javax"/>
+
+    <script language="judo" manager="javax">
+      println 'Hello World';
+    </script>
+  </target>
+
+  <target name="sleep">
+    <configure-language name="sleep" manager="javax"/>
+
+    <script language="sleep" manager="javax">
+      import javax.swing.JFrame;
+      import javax.swing.JTree;
+      import javax.swing.WindowConstants;
+
+      $frame = [new JFrame:"Simplest GUI"];
+      [$frame setDefaultCloseOperation:[WindowConstants EXIT_ON_CLOSE]];
+      $tree = [new JTree];
+      [[$frame getContentPane] add:$tree];
+      [$frame pack];
+      [$frame show];
+    </script>
+  </target>
+
+  <target name="javafx">
+    <configure-language name="javafx" manager="javax"/>
+
+    <script language="FX" manager="javax">
+      import java.lang.System;
+
+      import javafx.ui.*;
+
+      Frame {
+          onClose: operation() {
+              System.exit(0);
+          }
+
+          title: "Hello World Java FX"
+
+          width: 200
+          height: 200
+
+          content: Label {
+
+              text: "Hello World"
+
+          }
+
+          visible: true
+      }
+    </script>
+  </target>
+
+  <target name="scala">
+    <configure-language name="scala" manager="javax"/>
+
+    <script language="scala">
+      Console.println("Hello, world from Scala!")
+     </script>
+  </target>
+
+</project>

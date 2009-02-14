@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="test" default="compile" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+<!--
+  <taskdef resource="org/apache/maven/artifact/ant/antlib.xml"
+           uri="antlib:org.apache.maven.artifact.ant">
+    <classpath>
+      <pathelement location="${repository.home}/org/apache/maven/maven-artifact-ant/2.0.5/maven-artifact-ant-2.0.5.jar"/>
+    </classpath>
+  </taskdef>
+-->
+
+  <description>
+    @author Alexander Shvets
+  </description>
+
+  <artifact:localRepository id="local.repository" path="${repository.home}" layout="default"/>
+
+  <artifact:pom file="test.maven" id="maven.project" />
+
+  <target name="resolve.dependencies">
+    <artifact:dependencies pathId="compile.classpath" filesetId="compile.fileset" useScope="compile">
+      <localRepository refid="local.repository"/>
+      <pom refid="maven.project"/>
+    </artifact:dependencies>
+  </target>
+
+  <target name="clean" description="Removes all compiled classes">
+    <delete dir="${maven.project.build.directory}"/>
+  </target>
+
+  <target name="compile" depends="resolve.dependencies">
+    <mkdir dir="${maven.project.build.outputDirectory}"/>
+
+    <javac destdir="${maven.project.build.outputDirectory}"
+           includeAntRuntime="false"
+           debug="${debug}"
+           optimize="${optimize}"
+           deprecation ="${deprecation}">
+        <classpath refid="compile.classpath"/>
+        <src path="${maven.project.build.sourceDirectory}"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${maven.project.build.directory}/test.jar">
+      <fileset dir="${maven.project.build.outputDirectory}"/>
+    </jar>
+  </target>
+
+</project>

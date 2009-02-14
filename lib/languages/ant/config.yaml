@@ -1,0 +1,44 @@
+jvmargs:
+
+artifacts:
+  bsh: bsh:bsh:jar:2.0b5
+  bcel:                    bcel:bcel:jar:5.1
+  bsf:                     bsf:bsf:jar:2.4.0
+  log4j:                   log4j:log4j:jar:1.2.13
+  oro:                     oro:oro:jar:2.0.8
+  regexp:                  regexp:regexp:jar:1.3
+  xml-resolver:            xml-resolver:xml-resolver:jar:1.1
+  mail:                    javax.mail:mail:jar:1.4
+  activation:              javax.activation:activation:jar:1.1
+  jdepend:                 jdepend:jdepend:jar:2.7
+  jsch:                    com.jcraft:jsch:jar:0.1.29
+  junit:                   junit:junit:jar:3.8.2
+  commons-logging-api:     commons-logging:commons-logging-api:jar:1.0.4
+  commons-net:             commons-net:commons-net:jar:1.4.0
+
+  ant:                     org.apache.ant:ant:jar:1.7.1
+  ant-apache-bcel:         org.apache.ant:ant-apache-bcel:jar:1.7.1
+  ant-apache-bsf:          org.apache.ant:ant-apache-bsf:jar:1.7.1
+  ant-apache-log4j:        org.apache.ant:ant-apache-log4j:jar:1.7.1
+  ant-apache-oro:          org.apache.ant:ant-apache-oro:jar:1.7.1
+  ant-apache-regexp:       org.apache.ant:ant-apache-regexp:jar:1.7.1
+  ant-apache-resolver:     org.apache.ant:ant-apache-resolver:jar:1.7.1
+  ant-commons-logging:     org.apache.ant:ant-commons-logging:jar:1.7.1
+  ant-commons-net:         org.apache.ant:ant-commons-net:jar:1.7.1
+  ant-javamail:            org.apache.ant:ant-javamail:jar:1.7.1
+  ant-jdepend:             org.apache.ant:ant-jdepend:jar:1.7.1
+  ant-jsch:                org.apache.ant:ant-jsch:jar:1.7.1
+  ant-junit:               org.apache.ant:ant-junit:jar:1.7.1
+  ant-launcher:            org.apache.ant:ant-launcher:jar:1.7.1
+  ant-nodeps:              org.apache.ant:ant-nodeps:jar:1.7.1
+  ant-swing:               org.apache.ant:ant-swing:jar:1.7.1
+  ant-testutil:            org.apache.ant:ant-testutil:jar:1.7.1
+  ant-trax:                org.apache.ant:ant-trax:jar:1.7.1
+  ant-pack200:             org.apache.ant:ant-pack200:jar:1.7.1
+  ant-apt:                 org.apache.ant:ant-apt:jar:1.7.1
+  ant-antlr:               org.apache.ant:ant-antlr:jar:1.7.1
+
+start_class: org.apache.tools.ant.Main
+
+command_line: 
+  ['-f']

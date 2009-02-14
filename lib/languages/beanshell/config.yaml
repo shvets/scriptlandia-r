@@ -1,0 +1,6 @@
+jvmargs:
+
+artifacts:
+  bsh: bsh:bsh:jar:2.0b5
+
+start_class: bsh.Interpreter

@@ -1,0 +1,49 @@
+<!-- test4.etl -->
+
+<!DOCTYPE etl SYSTEM "http://scriptella.javaforge.com/dtd/etl.dtd">
+
+<etl>
+  <properties>
+    <include href="etl.properties"/>
+  </properties>
+
+  <connection id="test" 
+              driver="${driver}" url="${url}" user="${user}" password="${password}" 
+              classpath="file:/${repository.home}/hsqldb/hsqldb/1.8.0.1/hsqldb-1.8.0.1.jar"/>
+
+  <connection id="velocity" driver="velocity" url="report.txt" 
+              classpath="${repository.home}/velocity/velocity/1.5/velocity-1.5.jar;${repository.home}/commons-collections/commons-collections/3.2/commons-collections-3.2.jar;${repository.home}/commons-lang/commons-lang/2.3/commons-lang-2.3.jar"/>
+
+  <script connection-id="test">
+      CREATE TABLE Track (
+        ID INT,
+        ALBUM_ID INT,
+        NAME VARCHAR(100),
+        DATA LONGVARBINARY
+      );
+      <!-- Inserts file with path relative to ETL script location -->
+      INSERT INTO Track(id, album_id, name, data) VALUES
+             (1, 1, 'Song1.mp3', ?{file 'etl.properties'});
+      <!-- Inserts file from an external URL-->
+      INSERT INTO Track(id, album_id, name, data) VALUES
+             (2, 2, 'Song2.mp3', ?{file 'http://repo.mergere.com/maven2/ant/ant-launcher/1.6.5/ant-launcher-1.6.5.jar'});
+  </script>
+
+  <script connection-id="velocity">
+    Results:
+  </script>
+
+  <query connection-id="test">
+    select * from track;
+
+    <script connection-id="velocity">
+      ${album_id} ${name}
+
+    </script>
+  </query>
+
+  <script connection-id="test"><!--Gracefully shutdown HSQLDB-->
+    COMMIT;SHUTDOWN;
+  </script>
+
+</etl>

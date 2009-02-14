@@ -1,0 +1,12 @@
+jvmargs:
+
+artifacts:
+  scala-lirary: org.scala-lang:scala-library:jar:2.7.1
+  scala-compiler: org.scala-lang:scala-compiler:jar:2.7.1
+  scala-dbc: org.scala-lang:scala-dbc:jar:2.7.1
+  scala-decoder: org.scala-lang:scala-decoder:jar:2.7.1
+
+start_class: scala.tools.nsc.MainGenericRunner
+
+command_line: 
+  ['-nocompdaemon', '-howtorun:script']

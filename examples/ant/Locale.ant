@@ -1,0 +1,11 @@
+<!-- Locale.ant -->
+
+<project name="Locale.antlet" default="start" basedir=".">
+
+  <target name="start">
+    <script language="beanshell">
+      System.out.println("Locale: " + Locale.getDefault());
+    </script>
+  </target>
+
+</project>

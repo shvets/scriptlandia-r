@@ -1,0 +1,36 @@
+# A script to parse the data in the wtmp file on MacOS X
+# The purpose of this example is to illustrate working with
+# binary data using Sleep.
+#
+# To execute:
+#
+# [raffi@beardsley ~]$ java -jar sleep.jar wtmp.sl
+#
+# From the wtmp manpage:
+#
+# #define _PATH_WTMP      "/var/log/wtmp"
+#
+# #define UT_NAMESIZE     8
+# #define UT_LINESIZE     8
+# #define UT_HOSTSIZE     16
+#
+# struct utmp {
+#         char    ut_line[UT_LINESIZE];
+#         char    ut_name[UT_NAMESIZE];
+#         char    ut_host[UT_HOSTSIZE];
+#         time_t  ut_time;
+# };
+#
+
+$handle = openf("/var/log/wtmp");
+
+while (!-eof $handle)
+{
+   ($tty, $uid, $host, $ctime) = bread($handle, 'Z8 Z8 Z16 I');
+
+   if ($ctime == 0 || $uid eq "") { break; }
+
+   $date = formatDate($ctime * 1000, "EEE, d MMM yyyy HH:mm:ss Z");
+
+   println("$[10]tty $[10]uid $[20]host $date");
+}

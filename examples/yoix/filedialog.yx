@@ -1,0 +1,16 @@
+//
+// A really old FileDialog example.
+//
+
+import yoix.*.*;
+
+FileDialog dialog = {
+	String title = "FileDialog Test";
+	String file = "xxx.yoix";
+	int    mode = SAVE;
+};
+
+dialog.visible = TRUE;
+printf("you selected: %s%s\n", dialog.directory, dialog.file);
+
+exit(0);

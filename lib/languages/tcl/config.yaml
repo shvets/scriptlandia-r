@@ -1,0 +1,9 @@
+jvmargs:
+
+artifacts:
+  jacl: tcl:jacl:jar:1.4.0
+  tcljava: tcl:tcljava:jar:1.4.0
+  itcl: tcl:itcl:jar:1.4.0
+  tjc: tcl:tjc:jar:1.4.0
+
+start_class: tcl.lang.Shell

@@ -1,0 +1,55 @@
+#
+# Simple Sleep Based Graphical Web Browser
+# Java's HTML setup isn't very good, therefor this browser isn't either
+#
+
+import java.awt.*;
+import javax.swing.*;
+import java.net.*;
+
+$window = [new JFrame:"Sleep Based Web Browser"];
+[$window setDefaultCloseOperation: [JFrame EXIT_ON_CLOSE]];
+[$window setSize:480, 320];
+
+sub go_to_site
+{
+   [$display setPage:  [$address getText] ];
+
+   if (checkError($check))
+   {
+      println("Errro: $check");
+   }
+}
+
+sub link_clicked
+{
+   println("Func call: $0");
+   foreach $var (@_) { println("    The linked was clicked: $var"); }
+
+   if ([$1 getEventType] eq "ACTIVATED")
+   {
+      [$display setPage: [$1 getURL]];
+      [$address setText: [$1 getURL]];
+   }
+}
+
+$address = [new JTextField:20];
+[$address addActionListener:&go_to_site];
+
+$button  = [new JButton:"Go!"];
+[$button addActionListener:&go_to_site];
+
+$panel   = [new JPanel];
+[$panel add: $address];
+[$panel add: $button];
+
+[[$window getContentPane] setLayout:[new BorderLayout]];
+[[$window getContentPane] add:$panel, [BorderLayout NORTH]];
+
+$display = [new JEditorPane:"text/html", ""];
+[$display addHyperlinkListener:&link_clicked];
+[$display setEditable:0];
+
+[[$window getContentPane] add:[new JScrollPane:$display], [BorderLayout CENTER]];
+
+[$window show];

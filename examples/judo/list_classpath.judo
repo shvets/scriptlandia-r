@@ -1,0 +1,11 @@
+#classpath.add('c:/temp');
+
+println '---- User classpath components ----';
+for x in #classpath.userClasspaths {
+  println x;
+}
+
+println nl, '---- System classpath components ----';
+for x in #classpath.systemClasspaths {
+  println x;
+}

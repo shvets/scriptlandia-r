@@ -1,0 +1,12 @@
+
+import p7e.engine.Script;
+
+main {
+    String dynScript = {{
+        main {
+            exit("Hello World");
+        }
+    }};
+
+    exit(new Script(dynScript).run());
+}

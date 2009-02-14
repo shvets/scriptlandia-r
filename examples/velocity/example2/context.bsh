@@ -1,0 +1,18 @@
+import org.apache.velocity.VelocityContext;
+
+ArrayList getNames() {
+  ArrayList list = new ArrayList();
+
+  list.add("ArrayList element 1");
+  list.add("ArrayList element 2");
+  list.add("ArrayList element 3");
+  list.add("ArrayList element 4");
+
+  return list;
+}
+
+VelocityContext context = new VelocityContext();
+
+context.put("list", getNames());
+
+return context;

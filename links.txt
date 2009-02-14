@@ -1,0 +1,12 @@
+http://rubyforge.org/docman/view.php/5/460/faq.html#shell
+
+plink @rubyforge.org svnserve -t
+
+Session--Host=rubyforge.org,protocol=ssh
+Session.Logging--Save a log file somewhere in case there are problems
+Connection.Data--auto-login username= (I used skriloffn)
+ssh--Preferred ssh protocol version=1
+ssh.auth--private key file for authentication c:\Program Files\putty\private.ppk
+
+[tunnels]
+ssh=plink

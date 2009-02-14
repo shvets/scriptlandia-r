@@ -1,0 +1,26 @@
+<!-- Hello.ant -->
+
+<project name="Hello.antlet" default="start" basedir=".">
+
+  <addtoclassloader>
+    <path>
+      <fileset dir="lib">
+        <include name="**/*.jar"/>
+      </fileset>
+    </path>
+  </addtoclassloader>
+
+  <property file="TestSQL.properties"/>
+
+  <target name="start">
+    <sql driver="${database.driver}"
+         url="${database.url}"
+         userid="${database.user}"
+         password="${database.password}"
+         print="yes">
+     select * from tab;
+    </sql>
+
+  </target>
+
+</project>

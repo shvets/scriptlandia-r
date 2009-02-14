@@ -1,0 +1,57 @@
+# CelsiusConverter.java is a 1.4 application that 
+# demonstrates the use of JButton, JTextField and
+# JLabel.  It requires no other files.
+#
+# Straight conversion from Java to Sleep of:
+# http://java.sun.com/docs/books/tutorial/uiswing/learn/example3.html
+#
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+# Make sure we have nice window decorations.
+[JFrame setDefaultLookAndFeelDecorated: 1];
+
+# Create and set up the window.
+$converterFrame = [new JFrame: "Convert Celsius to Fahrenheit"];
+[$converterFrame setDefaultCloseOperation: [JFrame EXIT_ON_CLOSE]];
+[$converterFrame setSize: [new Dimension: 120, 40]];
+
+# Create and set up the panel.
+$converterPanel = [new JPanel: [new GridLayout: 2, 2]];
+
+# Add the widgets.
+$tempCelsius     = [new JTextField: 2];
+
+$celsiusLabel    = [new JLabel: "Celsius", [SwingConstants LEFT]];
+$convertTemp     = [new JButton: "Convert"];
+$fahrenheitLabel = [new JLabel: "Fahrenheit", [SwingConstants LEFT]];
+
+# Listen to events from the Convert button.
+[$convertTemp addActionListener: 
+ {
+    # Parse degrees Celsius as a double and convert to Fahrenheit.
+    $tempFahr = [$tempCelsius getText] * 1.8 + 32;
+
+    [$fahrenheitLabel setText: "$tempFahr Fahrenheit"];
+ }];
+
+# Add the widgets to the container.
+[$converterPanel add: $tempCelsius];
+[$converterPanel add: $celsiusLabel];
+[$converterPanel add: $convertTemp];
+[$converterPanel add: $fahrenheitLabel];
+        
+[$celsiusLabel setBorder: [BorderFactory createEmptyBorder: 5, 5, 5, 5]];
+[$fahrenheitLabel setBorder: [BorderFactory createEmptyBorder: 5, 5, 5, 5]];
+
+# Set the default button.
+[[$converterFrame getRootPane] setDefaultButton: $convertTemp];
+
+# Add the panel to the window.
+[[$converterFrame getContentPane] add: $converterPanel, [BorderLayout CENTER]];
+
+# Display the window.
+[$converterFrame pack];
+[$converterFrame setVisible:1];

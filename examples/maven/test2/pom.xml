@@ -1,0 +1,37 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>test</groupId>
+  <artifactId>props</artifactId>
+  <version>1-SNAPSHOT</version>
+
+  <build>
+    <defaultGoal>antrun:run</defaultGoal>
+
+    <!--
+      Utilizing the Antrun plugin is a convenient way to view
+      current property values.
+    -->
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <configuration>
+          <tasks>
+            <echo>CSS: ${css.pref}</echo>
+            <echo>Module: ${module}</echo>
+         </tasks>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+
+  <!--
+    Even if you feel certain that profiles will always execute
+    it is still a good idea to set default properties.
+  -->
+  <properties>
+    <css.pref>default.css</css.pref>
+    <module>default</module>
+  </properties>
+
+</project>

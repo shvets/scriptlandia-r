@@ -1,0 +1,3 @@
+Run:
+
+test.pnut -wait

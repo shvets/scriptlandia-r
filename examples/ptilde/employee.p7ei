@@ -1,0 +1,22 @@
+struct Employee {
+    constructor (String name)
+    {
+    }
+
+    static function void setTo (Employee& ref, String name)
+    {
+        if (ref == null)
+            ref = new Employee(name);
+    }
+
+     // much more data and function members
+}
+
+
+function void fillMap (String[] names, Employee[String] map)
+{
+    for (int i = 0; i < names.length; i++) {
+        String name = names[i];
+        Employee.setTo(map[name], name);
+    }
+}

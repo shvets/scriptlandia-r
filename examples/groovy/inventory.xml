@@ -1,0 +1,10 @@
+<inventory>
+        <section name="fiction">
+                <book author="Jean-Paul Satre" title="La Peste" />
+                <book author="Jean-Paul Satre" title="The Stranger" />
+        </section>
+        <section name="non-fiction">
+                <book author="Bill Clinton" title="My Life" >Pages</book>
+                <book author="Hilary Clinton" title="It Takes A Village..." />
+        </section>
+</inventory>

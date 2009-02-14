@@ -1,0 +1,5 @@
+Map context = new HashMap();
+
+context.put("message", "Hello from Freemarker!");
+
+return context;

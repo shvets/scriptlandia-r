@@ -1,0 +1,13 @@
+import javax.swing.*;
+
+[JFrame setDefaultLookAndFeelDecorated: 1];
+
+$frame = [new JFrame: "HelloWorldSwing"];
+[$frame setDefaultCloseOperation: [JFrame EXIT_ON_CLOSE]];
+
+$label = [new JLabel: "Hello World"];
+
+[[$frame getContentPane] add: $label];
+
+[$frame pack];
+[$frame setVisible: 1];

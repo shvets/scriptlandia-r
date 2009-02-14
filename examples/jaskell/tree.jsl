@@ -1,0 +1,52 @@
+str_tree mytree +"\r\n -\r\n" + str_tree test_tree
++ " ==" + compare mytree test_tree where
+compare t1 t2 = 
+  let
+    r = compare' t1 t2;
+    debug ((str_tree t1) + "\r\n-\r\n"+(str_tree t2)+"\r\n yielding " +r +"\r\n")
+    >> r;
+  end;
+compare' {left=l1,right=r1,val=v1} {left=l2,right=r2,val=v2} =
+			  switch true
+			    .case (v1<v2) (debug "<" >> -1)
+			    .case (v1>v2) (debug ">" >> 1)
+			    .default (compare_sub l1 r1 l2 r2)
+			    .end
+|       {left} _ = (debug "left vs. leaf" >> 1)
+|       _ {left} = -1
+|       _ _ = 0;
+compare_sub l1 r1 l2 r2 = debug "comparing sub" >>
+                  switch (compare l1 l2)
+			        .case (-1) (-1)
+			        .case 1 1
+			        .default (compare r1 r2)
+			        .end;
+/*		        
+switch v = {when cond r = if cond==v then return r else this; default r=return r}
+  where return r = {when _ _ = this; default _ = this; eval=r;}..;
+*/
+includes = jaskell.tuple.includes;
+switch = std.switch;
+std = jaskell `includes jaskell.prelude;
+leaf = {};
+node v = {val=v;left=leaf;right=leaf};
+build_tree v l r = {val=v;left=l;right=r};
+mytree = build_tree 3
+         (build_tree 4 (node 10) leaf)
+         (build_tree 20 leaf (build_tree 2 (node 1) (node 2)));
+test_tree = build_tree 3
+         (build_tree 4 (node 10) leaf)
+         (build_tree 20 leaf (build_tree 2 (node (-1--5)) (node 2)));
+str_tree tr = show "" 0 tr where
+  show pre n {left=l,right=r,val=v,} = 
+	    pre + v + show ("\r\n"+ indent n + "left: ") (n+2) l
+	    + show("\r\n"+indent n + "right: ") (n+2) r
+  |    _ _ _ = "";
+  end;
+indent n = indent' "" n where
+  indent' s n = if n==0 then s else indent' (s+" ") (n-1);
+  end;
+out = java.lang.System.err;
+debug s = out.println[s];		  
+end
+			        

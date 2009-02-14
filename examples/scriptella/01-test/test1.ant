@@ -1,0 +1,25 @@
+<!-- test.ant -->
+
+<project name="test.ant" default="main">
+
+  <script language="beanshell">
+    Properties props = new Properties();
+    props.load(new FileInputStream(System.getProperty("user.home") + "/.scriptlandia"));
+    project.setNewProperty("etl.version", props.get("etl.version"))
+  </script>
+
+  <taskdef resource="antscriptella.properties">
+    <classpath>
+      <pathelement path="${repository.home}/scriptella/scriptella-core/${etl.version}/scriptella-core-${etl.version}.jar"/>
+      <pathelement path="${repository.home}/scriptella/scriptella-drivers/${etl.version}/scriptella-drivers-${etl.version}.jar"/>
+      <pathelement path="${repository.home}/scriptella/scriptella-tools/${etl.version}/scriptella-tools-${etl.version}.jar"/>
+    </classpath>
+  </taskdef>
+
+  <target name="main">
+    <etl debug="true">
+      <fileset file="test1.etl"/>
+    </etl>
+  </target>
+
+</project>

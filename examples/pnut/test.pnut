@@ -1,0 +1,10 @@
+import("javax.swing.JFrame")
+import("javax.swing.JTree")
+
+
+frame = new JFrame();
+frame.setDefaultCloseOperation(JFrame::EXIT_ON_CLOSE)
+tree = new JTree();
+frame.getContentPane().add(tree);
+frame.pack();
+frame.show();

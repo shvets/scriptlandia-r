@@ -1,0 +1,38 @@
+println (<<<START this is the "text" and 'char' and "\text" START>>> 
++ <<<
+and the code is
+<<<START this is the "text" and 'char' and "\text" START>>>
+>>>)
+>>
+jaskell.prelude.assert(13, 
+jaskell.callcc (\k->std.for 1 (\i->i<20) ((+)1) (\i->if i==13 then k i else println (i.intValue[])))) >>
+test 
+
+where
+includes = jaskell.tuple.includes;
+std = jaskell `includes jaskell.java `includes jaskell.imperative.{for};
+sync = std.synchronized;
+ref = jaskell.prelude.ref;
+myrunnable n t = 
+  let
+    info = ref{name=n;time=t};
+    {run=sync this $ go (info.get.name) (info.get.time);
+     setName n = println ("old info is " + set_name info n) /*"extra arg"*/ >> this;
+     setTime t = set_time info t >> this}
+  end
+  where 
+      go name time = 
+        println (name + " sleeping for " + time + " ms.")
+        >> Thread.sleep[time] >> println (name+" awoken");
+      set_name info n = info.set $ info.get.{name=n};
+      set_time info t = info.set $ info.get.{time=t};
+  end;
+println s = java.lang.System.err.println [s];
+Thread = java.lang.Thread;
+//Thread = std.import "tests.jfun.models.MyThread";
+Runnable = java.lang.Runnable;
+implements = std.implements;
+run r = Thread.new[r `implements Runnable].start[];
+test = test_runnable $ myrunnable "task1" 100;
+test_runnable r = run r >> r.setName "task2".setTime 200 >> run r;
+end

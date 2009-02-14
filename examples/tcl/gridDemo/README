@@ -1,0 +1,26 @@
+README
+RCS: @(#) $Id: README,v 1.1 1999/05/08 05:51:54 dejong Exp $
+
+Abstract
+--------
+
+      This demo shows how to use the java::* commands to create GUI
+      components and handle user events. It also shows how a grid
+      like command can be constructed around a GridBagLayoutManager.
+
+Why Bother?
+-----------
+
+      The java::* commands can be used to do rapid development of AWT-
+      based GUI applications.  Forget all the fuss of implementing
+      event interfaces, using inner classes, etc., to handle
+      events.  Just use the java::bind command!
+
+Running The Demo
+----------------
+Run:
+>gridDemo.tcl 
+
+     Now you can select the employees to fire by selecting their
+     names and clicking on the arrow buttons.
+

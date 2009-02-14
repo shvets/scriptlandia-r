@@ -1,0 +1,216 @@
+import yoix.*.*;
+
+MouseWheelMoved(e) {
+    int index;
+            
+    index = indexOfObject(this.mappings, this.selected);
+    if (e.wheelrotation < 0) {
+	if (--index >= 0)
+	    this.selected = index;
+    } else {
+	if (++index < this.mappings@length)
+	    this.selected = index;
+    }
+}
+
+
+JFrame jf = {
+    Dimension size = NULL;
+    int         visible = TRUE;
+
+    Array       layout = {
+	new JPanel {
+	    int border = 72 / 8;
+
+	    Array layout = {
+
+		new JPanel {
+		    String border = "Font Chooser";
+		    Array          layout = {
+			new JPanel {
+			    BorderLayout  layoutmanager;
+			    int border = 72 / 8;
+
+			    Array layout = {
+				new JTextArea {
+				    String tag = "$_fpreview";
+				    String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n0123456789\n`~!@#$%^&*()_-+={}[]\\/|'\";:<>,.?";
+				    int    edit = FALSE;
+				    int    scroll = BOTH;
+				    int    rows = 0;
+				    int    columns = 0;
+				    int    border = 72 / 16;
+				    Dimension preferredSize = {
+					int width = 6 * 72;
+					int height = 2 * 72;
+				    };
+				},
+				CENTER,
+				new JPanel {
+				    BorderLayout layoutmanager;
+				    int border = 4;
+
+				    Array layout = {
+					new JPanel {
+					    FlowLayout layoutmanager;
+
+					    Array layout = {
+						new JPanel {
+						    GridBagLayout layoutmanager;
+						    Array layout = {
+							new JLabel {
+							    String text = "Name:";
+							    int alignment = RIGHT;
+							},
+							new GridBagConstraints {
+							    int fill = HORIZONTAL;
+							    int weightx = 1;
+							    int gridwidth = RELATIVE;
+							    Insets insets = {
+								int top = 18;
+								int bottom = 4;
+								int left = 18;
+								int right = 2;
+							    };
+							},
+							new JComboBox {
+							    String tag = "$_fontname";
+							    Array labels = getFontList();
+							    String selected = "Dialog";
+							    int requestfocus = TRUE;
+							    Function mouseWheelMoved = MouseWheelMoved;
+							    itemStateChanged(e) {
+								if (e.state) {
+								    root.components.$_fpreview.font = root.components.$_fontname.selected + "-" + root.components.$_fontface.selected + "-" + root.components.$_fontsize.selected;
+								}
+							    }
+							},
+							new GridBagConstraints {
+							    int fill = HORIZONTAL;
+							    int weightx = 100;
+							    int gridwidth = REMAINDER;
+							    Insets insets = {
+								int top = 18;
+								int bottom = 4;
+								int left = 2;
+								int right = 18;
+							    };
+							},
+							new JLabel {
+							    String text = "Face:";
+							    int alignment = RIGHT;
+							},
+							new GridBagConstraints {
+							    int fill = HORIZONTAL;
+							    int weightx = 1;
+							    int gridwidth = RELATIVE;
+							    Insets insets = {
+								int top = 4;
+								int bottom = 4;
+								int left = 18;
+								int right = 2;
+							    };
+							},
+							new JComboBox {
+							    String tag = "$_fontface";
+							    String selected = "plain";
+							    Array labels = {
+								"plain",
+								"bold",
+								"italic",
+								"bolditalic",
+							    };
+							    Function mouseWheelMoved = MouseWheelMoved;
+							    itemStateChanged(e) {
+								if (e.state) {
+								    root.components.$_fpreview.font = root.components.$_fontname.selected + "-" + root.components.$_fontface.selected + "-" + root.components.$_fontsize.selected;
+								}
+							    }
+							},
+							new GridBagConstraints {
+							    int fill = HORIZONTAL;
+							    int weightx = 100;
+							    int gridwidth = REMAINDER;
+							    Insets insets = {
+								int top = 4;
+								int bottom = 4;
+								int left = 2;
+								int right = 18;
+							    };
+							},
+							new JLabel {
+							    String text = "Size:";
+							    int alignment = RIGHT;
+							},
+							new GridBagConstraints {
+							    int fill = HORIZONTAL;
+							    int weightx = 1;
+							    int gridwidth = RELATIVE;
+							    Insets insets = {
+								int top = 4;
+								int bottom = 18;
+								int left = 18;
+								int right = 2;
+							    };
+							},
+							new JComboBox {
+							    String tag = "$_fontsize";
+							    String selected = "12";
+							    Array labels = {
+								"4", "5", "6", "7", "8", "9",
+								"10", "11", "12", "14", "16",
+								"18", "20", "22", "24", "28",
+								"32", "36", "40", "44", "48",
+								"56", "64", "72", "80", "88",
+								"96",
+							    };
+							    Function mouseWheelMoved = MouseWheelMoved;
+							    itemStateChanged(e) {
+								if (e.state) {
+								    root.components.$_fpreview.font = root.components.$_fontname.selected + "-" + root.components.$_fontface.selected + "-" + root.components.$_fontsize.selected;
+								}
+							    }
+							},
+							new GridBagConstraints {
+							    int fill = HORIZONTAL;
+							    int weightx = 100;
+							    int gridwidth = REMAINDER;
+							    Insets insets = {
+								int top = 4;
+								int bottom = 18;
+								int left = 2;
+								int right = 18;
+							    };
+							},
+						    };
+						},
+					    };
+					},
+					CENTER,
+					new JPanel {
+					    FlowLayout layoutmanager;
+					    Array layout = {
+						new JButton {
+						    String text = "Select";
+						    actionPerformed(e) {
+							stdout.nextline = root.components.$_fontname.selected + "-" + root.components.$_fontface.selected + "-" + root.components.$_fontsize.selected;
+						    }
+						},
+					    };
+					},
+					SOUTH,
+				    };
+				},
+				SOUTH,
+			    };
+			},
+		    };
+		},
+	    };
+	},
+    };
+
+    windowActivated(e) {
+	root.components.$_fpreview.font = root.components.$_fontname.selected + "-" + root.components.$_fontface.selected + "-" + root.components.$_fontsize.selected;
+    }
+};

@@ -1,0 +1,64 @@
+README
+RCS: @(#) $Id: README,v 1.2 1999/05/08 23:27:10 dejong Exp $
+
+
+Abstract
+--------
+
+      This demo shows how to embed a Tcl console in a Java applet.
+
+Why Bother?
+-----------
+
+      By adding a Tcl console to the applet, we can dynamically
+      change the functionality of applet's widgets.
+
+Running The Demo
+----------------
+
+      The demo requires the appletviewer application. Therefore,
+      the demo will not run under Tcl Blend. To run the demo you
+      will need to do these 4 things.
+
+      1) Run "make demos" in the build directory.
+
+      2) Set your CLASSPATH to include the JDK's classes.zip file,
+         the tcljava.jar file, the jacl.jar file, and .
+
+      3) cd to demos/pyramidpkg (the directory containing this README)
+
+      4) Then type "appletviewer pyramid.html" to begin the demo.
+
+      The Java applet is comprised of three components: 
+	a) a drawing of a partially built pyramid.
+  	b) buttons which allow the user to build and remove blocks from the
+           drawing, and
+  	c) a console which runs a Tcl interpreter.  The Tcl interpreter is
+           extended with two new commands "build" and "remove" which allow
+           the user to manipulate the pyramid in the same way as with the
+           buttons.
+
+      How do we change functionality of the applet's widgets dynamically?
+      In the console, we can redefine the Tcl interpreter's "build" and
+      "remove" commands.  If you look at the BuildButtonListener class in
+      "Pyramid.java", you will see that the button is hardcoded to invoke
+      the Pyramid's buildBlock() method.  We cannot change the behavior of
+      this method from within Tcl.  However, if you look at the
+      RemoveButtonListener class in "Pyramid.java", you will see that this
+      button causes the "remove" command to be evaluated in the Tcl
+      interpreter, thereby rendering its behavior dynamically changeable.
+      Try typing the Tcl code in "changeDefs.tcl" into the applet console,
+      and see the interesting results.  Although you are running an applet,
+      the appletviewer tool allows you to source the file, so you can save
+      yourself some typing (neither cutting nor pasting works in the
+      console) by typing "source changeDefs.tcl".
+
+Source Files
+------------
+
+    * Pyramid.java
+    * AppletConsole.java
+    * ConsoleKeyListener.java
+    * ConsoleMouseListener.java
+    * changeDefs.tcl
+

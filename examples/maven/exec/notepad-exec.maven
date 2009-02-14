@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>exec</groupId>
+  <artifactId>exec</artifactId>
+  <version>1.4</version>
+
+  <build>
+    <defaultGoal>exec:exec</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>${env.windir}/notepad</executable>
+          <!-- optional -->
+<!--
+          <workingDirectory>/tmp</workingDirectory>
+          <arguments>
+            <argument>-X</argument>
+            <argument>myproject:dist</argument>
+          </arguments>
+-->
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

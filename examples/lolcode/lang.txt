@@ -1,0 +1,78 @@
+Code Block Support
+
+HAI
+  ...
+KTHXBYE
+
+Nested code blocks are supported (though they don't do anything (yet)). Should they?
+
+Empty code blocks are not supported. Should they be?
+Variable Declaration Support
+
+I HAS A [variable]
+
+This declares a variable. Simple enough.
+
+ITZ is not implemented and will throw an error. I'll implement it once it's in the standard.
+Expression Support
+
+[value] UP [value]
+[value] NERF [value]
+[value] TIEMZ [value]
+[value] OVAR [value]
+
+Precedence is not defined at the moment because the 1.0 standard does not define it. For now, use intermediate variables to ensure the precedence you want.
+Assignment Support
+
+LOL [variable] R [value]
+
+Value can be a number, an identifier, a string, or an expression.
+Mutator Support
+
+UPZ [variable]!![number]
+NERFZ [variable]!![number]
+TIEMZD [variable]!![number]
+OVARZ [variable]!![number]
+
+These are the equivalent of +=, etc. Right now they only support numbers after the bangs, not expressions, etc. If nothing is given it defaults to 1.
+Printing Support
+
+VISIBLE [item] [N [item2] ...][!]
+
+The item(s) may be a variable name, a quoted string, or a number. N may be used to print multiple, space-separated items.
+
+If the statement ends with a bang no newline is printed, otherwise a newline is printed at the end.
+Loop Support
+
+IM IN YR [label]
+  ...
+KTHX
+
+This creates an infinite loop. Hopefully there's a GTFO or BYES/DIAF in there somewhere to break out of it.
+
+Loop labels are supported, but don't do anything special. Should they?
+Conditional Support
+
+Conditionals currently have limited functionality.
+
+IZ [item] [test] [item][?]
+  [YARLY]
+    [statements]
+  [NOWAI]
+    [statements]
+KTHX
+
+Items can be numbers, variables, strings, or expressions.
+
+For now the only tests are "BIGR THAN", "SMALR THAN", and "LIEK". Putting a "NOT" in front of the test ("NOT BIGR THAN") will negate the result.
+
+Tests can be combined with AND, OR, and XOR. Precedence for these is not defined yet.
+
+The question mark is optional, as is the NOWAI clause. YARLY is optional if there is no NOWAI clause.
+Input Support
+
+GIMMEH [input type] [variable]
+
+The input type can be LETTAR, WORD, or LINE. The rules for where whitespace gets cut are a bit cloudy right now because they're not nailed down in the standard.
+
+It can only read from STDIN at the moment.

@@ -1,0 +1,19 @@
+import yoix.*.*;
+
+JFrame jf = {
+    int visible = 1;
+    Dimension size = NULL;
+    Array layout = {
+	new JTable {
+	    String tag = "$_table";
+	    int scroll = AS_NEEDED;
+	    Color gridcolor = Color.red;
+	    Array cellcolors = { new Array[] { Color.yellow, Color.orange }, };
+	    Array headers = { "Region", "Median", "% of US", "Selected" };
+	    Array types = { STRING_TYPE, MONEY_TYPE, PERCENT_TYPE, BOOLEAN_TYPE };
+	    String values = "US|44473|1|1\nNH|57352|1.28959|0\n"
+	    + "MI|44476|1.00007|0\nWV|32589|0.73278|0\n";
+	},
+	CENTER,
+    };
+};

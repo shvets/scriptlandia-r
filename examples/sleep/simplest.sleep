@@ -1,0 +1,12 @@
+import javax.swing.JFrame;
+import javax.swing.JTree;
+import javax.swing.WindowConstants;
+
+$frame = [new JFrame:"Simplest GUI"];
+[$frame setDefaultCloseOperation:[WindowConstants DISPOSE_ON_CLOSE]];
+$tree = [new JTree];
+[[$frame getContentPane] add:$tree];
+[$frame pack];
+[$frame show];
+
+# inspired from: http://www.javaworld.com/javaworld/jw-03-2005/jw-0314-scripting_p.html

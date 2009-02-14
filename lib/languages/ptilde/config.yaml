@@ -1,0 +1,8 @@
+jvmargs:
+  [-Djava.library.path=#{repositories.local}/ptilde/ptilde-lib/0.90]
+
+artifacts:
+  ptilde: ptilde:ptilde:jar:0.90
+  ptilde-lib: ptilde:ptilde-lib:jar:0.90
+
+start_class: p7e.engine.Engine

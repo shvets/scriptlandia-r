@@ -1,0 +1,7 @@
+jvmargs:
+
+artifacts:
+  pnuts:         pnuts:pnuts:jar:1.2
+  pnuts-modules: pnuts:pnuts-modules:jar:1.2
+
+start_class: pnuts.tools.Main

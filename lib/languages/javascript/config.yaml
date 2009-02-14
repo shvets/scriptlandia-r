@@ -1,0 +1,6 @@
+jvmargs:
+
+artifacts:
+  javascript: rhino:js:jar:1.6R4
+
+start_class: org.mozilla.javascript.tools.shell.Main

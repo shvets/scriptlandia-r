@@ -1,0 +1,195 @@
+//
+// Simple example that displays a bunch different AWT components in
+// a Frame managed by a GridLayout layout manger. Mostly rewritten,
+// but it was based on a VERY old test program so don't take it too
+// seriously.
+//
+
+import yoix.*.*;
+
+CheckboxGroup checkboxgroup;
+int           count = 0;
+
+Frame f = {
+    Dimension size = {
+	double width = 9*72;
+	double height = 3.5*72;
+    };
+
+    GridLayout layoutmanager = {
+	int hgap = 36;
+	int vgap = 6;
+	int rows = 0;
+	int columns = 3;
+    };
+
+    Array layout = {
+	new Button {
+	    String tag = "$_button1";
+	    String text = "Increment Test";
+	    String font = "Helvetica-bold-18";
+	    Color  background = Color.red;
+
+	    actionPerformed(e) {
+		count += 1;
+		if (count == 0)
+		    visible = FALSE;
+	    }
+	},
+
+	new Button {
+	    String tag = "$_button2";
+	    String text = "Decrement Test";
+	    String command = "xxxxx";
+	    Color  background = Color.blue;
+	    Color  foreground = Color.white;
+
+	    actionPerformed(e) {
+		count -= 1;
+		if (count == -5)
+		    root.components.$_button1.visible = TRUE;
+	    }
+
+	    keyTyped(e) {
+		if (e.keychar == 'q')
+		    exit(0);
+		else if (e.keychar == '@')
+		    text = "";
+		else text += e.keystring;
+	    }
+	},
+
+	new Canvas {
+	    String tag = "$_canvas";
+	    int    state = FALSE;
+
+	    Color background = {
+		double red = .5;
+		double green = .1;
+		double blue = .5;
+	    };
+
+	    Insets border = {
+		double top = 4;
+		double left = 4;
+		double bottom = 4;
+		double right = 4;
+	    };
+
+	    mousePressed(e) {
+		if (e.modifiers & BUTTON1_MASK)
+		    state = TRUE;
+	    }
+
+	    mouseReleased(e) {
+		if (e.modifiers & BUTTON1_MASK)
+		    state = FALSE;
+	    }
+
+	    paint(r) {
+		////puts("Running local paint");
+	    }
+	},
+
+	new TextField {
+	    String text = "Now is the time";
+	    int    columns = 20;
+
+	    actionPerformed(e) {
+		root.components.$_button1.text = e.command;
+	    }
+	},
+
+	new TextArea {
+	    String tag = "$_textarea";
+	    String text = "Textarea test:\n";
+	    int    columns = 50;
+	    int    rows = 10;
+	    int    scroll = VERTICAL;
+	},
+
+	new Checkbox {
+	    CheckboxGroup group = checkboxgroup;
+	    String        text = "Now is the time";
+	    int           state = TRUE;
+	},
+
+	new Checkbox {
+	    CheckboxGroup group = checkboxgroup;
+	    String        tag = "$_checkbox2";
+	    String        text = "for all good men";
+	    int           state = TRUE;
+	},
+
+	new Button {
+	    String text = "CheckboxGroup";
+	    Color  background = Color.green;
+
+	    actionPerformed(e) {
+		if (checkboxgroup.selected != NULL)
+		    root.components.$_textarea.text += checkboxgroup.selected + "\n";
+		checkboxgroup.selected = root.components.$_checkbox2;
+	    }
+	},
+
+	new Choice {
+	    int selected = 4;
+
+	    Array items = {
+		"Now is the time", NULL,
+		"for", "4",
+		"all good men", NULL,
+		"to come to the aid", NULL,
+		"of their", NULL,
+		"party",  NULL,
+	    };
+
+	    itemStateChanged(e) {
+		printf("%O\n", selected);
+	    }
+	},
+
+	new List {
+	    Array  items = {
+		"Now is the time", NULL,
+		"for", NULL,
+		"all good men", "two",
+		"to come to the aid", NULL,
+		"of their", NULL,
+		"party",  NULL,
+	    };
+
+	    Array selected = {1, 3};
+	    ////int   selected = 3;
+	    int   multiplemode = TRUE;
+	    int   rows = 4;
+
+	    itemStateChanged(e) {
+		printf("%O\n", selected);
+	    }
+	},
+
+	new Scrollbar {
+	    int orientation = HORIZONTAL;
+	    int visibleamount = 1;
+	    int maximum = 100;
+
+	    adjustmentValueChanged(e) {
+		root.components.$_canvas.background = new Color {
+		    double  red = (value + 0.0)/(maximum - visibleamount);
+		};
+		////root.components.$_textarea.caret = value;
+	    }
+	},
+
+	new Label {
+	    String text = "Right justified";
+	    Color  foreground = {double red = .8;};
+	    int    alignment = RIGHT;
+	},
+    };
+};
+
+f.visible = TRUE;
+stdout.nextline = toString(yoix.system.time() - VM.starttime);
+

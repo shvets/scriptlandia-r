@@ -1,0 +1,47 @@
+<!-- prepare.ant -->
+
+<project name="prepare" default="prepare" basedir=".">
+
+  <target name="init">
+    <property name="debug" value="false"/>
+    <property name="optimize" value="false"/>
+    <property name="deprecation" value="false"/>
+
+    <property name="src.dir" value="."/>
+    <property name="destination.dir" value="classes"/>
+    <property name="files.mask" value="Test.java"/>
+
+    <property name="archive.name" value="Test.jar"/>
+  </target>
+
+  <target name="prepare" depends="init">
+    <mkdir dir="${destination.dir}"/>
+
+    <javac destdir="${destination.dir}"
+           includeAntRuntime="false"
+           debug="${debug}"
+           optimize="${optimize}"
+           deprecation ="${deprecation}" source="1.5" target="1.5">
+        <src path="${src.dir}"/>
+        <include name ="${files.mask}"/>
+    </javac>
+
+   <jar destfile="${archive.name}">
+      <manifest>
+        <attribute name="Main-Class" value="Test"/>
+      </manifest>
+
+     <zipfileset dir="${src.dir}" prefix="META-INF">
+        <include name="default.ant"/>
+      </zipfileset>
+
+     <fileset dir="${destination.dir}">
+        <include name="**/*.class"/>
+      </fileset>
+    </jar>
+<!--
+    <delete dir="${destination.dir}"/>
+-->
+  </target>
+
+</project>

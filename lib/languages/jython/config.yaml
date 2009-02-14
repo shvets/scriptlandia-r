@@ -1,0 +1,9 @@
+jvmargs:
+  ['-Dpython.home=#{repositories.local}/jython/jython/2.2.1',
+  '-Dpython.cachedir=#{repositories.local}/jython/jython/2.2.1/cachedir']
+
+artifacts:
+  jython:     jython:jython:jar:2.2.1
+  jython-lib: jython:jython-lib:jar:2.2.1
+
+start_class: org.python.util.jython

@@ -1,0 +1,1 @@
+java.util.ArrayList.class.getMethod["equals", [java.lang.Object.class]]

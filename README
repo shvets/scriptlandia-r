@@ -1,0 +1,42 @@
+= Scriptlandia-R -- Running scripts for Java VM
+
+= Installing Scriptlandia-R
+
+RubyGems is the preferred easy install method for Scriptlandia-R.  However, you can install 
+Scriptlandia-R manually as described below.
+
+== Installing the Gem
+    $ sudo gem sources -a http://gems.github.com
+
+Scriptlandia-R is dependent on 2 plugins:
+
+    $ sudo gem install rjb
+    $ sudo gem install buildr
+
+or
+
+    $ sudo env JAVA_HOME=$JAVA_HOME gem install rjb 
+    $ sudo env JAVA_HOME=$JAVA_HOME gem install buildr 
+
+Scriptlandia-R is intended to be installed via the RubyGems [http://rubyforge.org/projects/rubygems/] system.
+To get the latest version, simply enter the following into your command prompt:
+
+    $ sudo gem install scriptlandia
+
+You must have RubyGems [http://rubyforge.org/projects/rubygems/] installed for the above to work.
+
+After installation you have to configure the gem:
+
+    $ sudo sl --configure 
+
+You have to enter the location of Java Home and Jar Repository Location.
+
+Now you can run scripts:
+
+    $ sl Hello.bsh
+    $ sl Test.scala
+
+To install dependencies (jar files) for the language, run this command:
+
+    $ sl --install bsh
+    $ sl --install scala

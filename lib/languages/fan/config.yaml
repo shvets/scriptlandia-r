@@ -1,0 +1,8 @@
+jvmargs:
+  ['-Dfan.home=#{repositories.local}/fan/fan-sys/1.0.29']
+
+artifacts:
+  fan: fan:fan-sys:jar:1.0.29
+  fan-lib: fan:fan-lib:jar:1.0.29
+
+start_class: fanx.tools.Fan

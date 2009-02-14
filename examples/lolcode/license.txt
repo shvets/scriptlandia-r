@@ -1,0 +1,3 @@
+These files are copyrighted by the owner at http://lolcode.com
+
+* I'm not sure what license they have, but are included here for testing purposes *

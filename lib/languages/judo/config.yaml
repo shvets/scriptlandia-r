@@ -1,0 +1,7 @@
+jvmargs:
+
+artifacts:
+  judo: judo:judo:jar:0.9
+  commons-lang: commons-lang:commons-lang:jar:2.3
+
+start_class: judo

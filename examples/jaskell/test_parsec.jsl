@@ -1,0 +1,7 @@
+$$<<callcc result is:
+ ${jaskell.prelude.assert(4, 1 + jaskell.callcc (\k->k 3))}>>$$+
+ let ps = jaskell.import {resource="jfun/jaskell/scripts/parsec/parsec.jsl"};
+   ps.parse ("bbb",ps.many(ps.string "abc" or ps.char 'b'),"test")
+   >>  ps.parse("1", ps.regex "[0-9]*", "test")
+ end
+ 

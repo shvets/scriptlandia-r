@@ -1,0 +1,9 @@
+jvmargs:
+
+artifacts:
+  jawk: org.jawk:jawk:jar:0.14
+
+start_class: org.jawk.Awk
+
+command_line: 
+  ['-f']

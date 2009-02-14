@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<j:jelly xmlns:j="jelly:core" trim="false">
+
+  Hello World!
+
+</j:jelly>

@@ -1,0 +1,59 @@
+# buildfile
+
+require 'yaml'
+
+settings = YAML::load File.open(File.dirname(__FILE__) + '/settings.yaml')
+
+ENV['JAVA_HOME'] = settings['java_home']
+
+repositories.local = settings['repositories']['local']
+
+settings['repositories']['remote'].each do |repository|
+  repositories.remote << repository
+end
+
+#options.proxy.http = ''
+#options.proxy.exclude << '*.mycompany.com'
+#options.proxy.exclude << 'localhost'
+#ENV['http_proxy'] = ''
+
+define 'buildr' do
+  def language_folder ext_mapping, ext
+    ext_mapping.each do |folder, extensions|
+      if folder == ext
+        return folder
+      end
+
+      if extensions.include?(ext)
+        return folder
+      end
+    end
+  end
+
+  def build dep
+   extension = ENV['EXT']
+
+   if(extension == nil)
+     puts "Please specify language name or extension."
+   else
+     puts "ext: " + extension
+
+     ext_mapping = YAML::load File.open(File.dirname(__FILE__) + '/languages/extension_mapping.yaml')
+
+     language = language_folder(ext_mapping, extension)
+
+     puts "language: " + language.to_s
+
+     lang_config = YAML::load File.open(File.dirname(__FILE__) + '/languages/' + language + '/config.yaml')
+
+     puts 'Installing ' + language + ' language...'
+
+     lang_config['artifacts'].each do |name, a|
+       artifact(a).invoke
+     end
+
+     puts 'Language ' + language + ' installed.'
+   end
+  end
+end
+

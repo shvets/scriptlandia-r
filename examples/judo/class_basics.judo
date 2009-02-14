@@ -1,0 +1,73 @@
+global_a = 'GA';
+
+function foo a, b { return a + b; }
+function bar a, b { return a @ b ; }
+function printAlfa cls { . 'cls.alfa = ', cls.alfa; }
+
+class MyCls
+{
+  constructor { this.create_time = Date(2002,2,2); }
+  function havenothing { return global_a; } // it should return null.
+  function foo a, b { return a * b * 10; }
+  function foo1 {
+    println "MyCls.foo1(): alfa = ", alfa;
+    println "MyCls.foo1(): beta = ", beta;
+    println "MyCls.foo1(): call bar(alfa,beta): ", bar(alfa,beta);
+  }
+  function foo2 { printAlfa(this); }
+  function foo3 { . 'MyCls::foo3.'; }
+}
+
+println '==========================';
+println 'a = new MyCls: ', a = new MyCls;
+println 'set a.alfa = ', a.alfa = 'abc';
+println 'get a.alfa = ', a.alfa;
+println 'a.foo(2,3) = ', a.foo(2,3);
+println 'foo(2,3) = ', foo(2,3);
+
+println '==========================';
+println 'a.havenothing(): ', a.havenothing();
+
+println '==========================';
+println 'Initialize the class:';
+a = new MyCls ( alfa = 'ABC', beta = 2 );
+println 'a.alfa = ', a.alfa;
+println 'a.beta = ', a.beta;
+
+println '==========================';
+println 'Invoke global functions from methods:';
+a.foo1();
+
+println '==========================';
+println "THIS reference ";
+a = new MyCls ( alfa = 'OPQRST', beta = 2 );
+a.foo2();
+
+println '==========================';
+println "SUPER reference ";
+
+class MyCls2 extends MyCls
+{
+  function foo3() {
+    super.foo3();
+    println 'MyCls2::foo3.';
+  }
+}
+
+b = new MyCls2;
+b.foo3();
+
+println '==========================';
+println "Method Invocations";
+println 'b.foo(5,7): ', b.foo(5,7);
+
+println '==========================';
+println "Indirect references";
+b.gamma = new MyCls( ccc = 'GAMMA' );
+println 'b.gamma.ccc: ', b.gamma.ccc;
+println 'b.gamma.foo(3,4): ', b.gamma.foo(3,4);
+
+println '==========================';
+println "Constructor";
+println 'a.create_time: ', a.create_time;
+println 'b.create_time: ', b.create_time;

@@ -1,0 +1,15 @@
+README
+RCS: @(#) $Id: README,v 1.1 1999/05/08 05:08:04 dejong Exp $
+
+Abstract
+--------
+
+      This demo shows how the java::* command can be used to create
+      a layout manager for java widgets that acts just like the pack
+      command from tk.
+
+Running The Demo
+----------------
+Run:
+>packDemo.tcl 
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>test</groupId>
+  <artifactId>test</artifactId>
+  <version>1.0</version>
+
+  <name>Test</name>
+
+  <build>
+    <finalName>test</finalName>
+
+    <defaultGoal>package</defaultGoal>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>groovy-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+
+            <configuration>
+              <scriptpath>
+                <element>${pom.basedir}/src/main/script</element>
+              </scriptpath>
+              <source>
+                <body>
+                  import Helper
+                  Helper.callSomeStatic()
+                </body>
+              </source>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+ 
+</project>
+

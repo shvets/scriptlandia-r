@@ -1,0 +1,21 @@
+// CommandLine.bsh
+
+import java.io.*;
+
+public class CommandLine {
+
+  public static void main(String[] argv) throws Throwable {
+    if(argv.length == 0) {
+      System.out.println("Missing command line.");
+    }
+    else {
+      System.out.println("Command line arguments:");
+
+      for(int i=0; i < argv.length; i++) {
+        System.out.print("  " + argv[i]);
+      }
+
+      System.out.println();
+    }
+  }
+}

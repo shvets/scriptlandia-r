@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>get-libraries</groupId>
+  <artifactId>get-libraries</artifactId>
+  <version>1.0</version>
+
+  <name>Get libraries</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.7.1</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <defaultGoal>compile</defaultGoal>
+  </build>
+
+</project>

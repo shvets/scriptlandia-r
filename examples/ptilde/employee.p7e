@@ -1,0 +1,26 @@
+include "employee.p7ei";
+
+main {
+    Employee[String] map = {
+        "Ralph" => new Employee("Ralph"),
+        "Amelia" => new Employee("Amelia"),
+        "Violet" => new Employee("Violet"),
+    };
+
+    String[] ar = {
+        "Charles",
+        "Violet",
+    };
+
+    fillMap(ar, map);
+
+    stdout << "size=" << map.size << system::lf();
+    String[] keys = map.keys();
+    keys.sort();
+    for (int i = 0; i < keys.length; i++)
+        stdout << "name="
+               << keys[i]
+               << ", employee="
+               << (String)map[keys[i]]
+               << system::lf();
+}
