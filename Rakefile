@@ -2,18 +2,69 @@
 
 require 'rubygems'
 require 'rake/gempackagetask'
+require 'rake/testtask'
+require 'spec/rake/spectask'
+require 'rake/rdoctask'
+require 'rcov/rcovtask'
 
-SPEC = Gem::Specification.load('scriptlandia-r.gemspec')
+spec_name = 'scriptlandia-r.gemspec'
+
+SPEC = Gem::Specification.load(spec_name)
 
 Rake::GemPackageTask.new(SPEC) do |pkg| 
   pkg.need_tar = true 
   pkg.need_zip = true
 end 
 
-file "sl.gemspec.yaml" do |t|
-  require 'yaml'
-  open(t.name, "w") { |f| f.puts SPEC.to_yaml }
+Spec::Rake::SpecTask.new do |task|
+  task.libs << 'lib'
+  task.pattern = 'spec/**/*_spec.rb'
+  task.verbose = false
 end
+
+Rake::RDocTask.new do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'teststuff'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+Rcov::RcovTask.new do |task|
+  task.libs << 'test'
+  task.test_files = FileList['test/**/*_test.rb']
+  task.verbose = true
+end
+
+desc "test gem compatibility with github"
+task :"github:validate" do
+  require 'yaml'
+   
+#p FileList['{docs,lib,tests,bin}/**/*']
+
+  require 'rubygems/specification'
+  data = File.read(spec_name)
+  spec = nil
+   
+  if data !~ %r{!ruby/object:Gem::Specification}
+    Thread.new { spec = eval("$SAFE = 3\n#{data}") }.join
+  else
+    spec = YAML.load(data)
+  end
+   
+  spec.validate
+   
+  puts spec
+  puts "OK"
+end
+
+task :default => :rcov
+
+
+
+
+
+
 
 # Install application using the standard install.rb script.
 
@@ -43,33 +94,3 @@ task :rubyfiles do
 end
 task :rf => :rubyfiles
 
-task :test2 do |t|
-  require 'test/unit/testsuite'
-  require 'test/unit/ui/console/testrunner'
-
-  runner = Test::Unit::UI::Console::TestRunner
-
-  $LOAD_PATH.unshift('tests')
-  Dir['test/*.rb'].each do |testcase|
-    load testcase
-  end
-
-  suite = Test::Unit::TestSuite.new
-
-  ObjectSpace.each_object(Class) do |testcase|
-    suite << testcase.suite if testcase < Test::Unit::TestCase
-  end
-
-  runner.run(suite)
-end
-
-desc "Publish the release files to RubyForge."
-task :release => [ :package ] do
-  require 'rubyforge'
-
-  packages = %w( gem tgz zip ).collect{ |ext| "pkg/#{PKG_NAME}-#{PKG_VERSION}.#{ext}" }
-
-  rubyforge = RubyForge.new
-  rubyforge.login
-  rubyforge.add_release(PKG_NAME, PKG_NAME, "REL #{PKG_VERSION}", *packages)
-end

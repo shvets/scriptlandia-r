@@ -1,4 +1,22 @@
-#
+# scriptlandia-r.gemspec
+
+class Gem::Specification
+  def self.files dir
+    list = []
+    Dir.new(dir).each do |f|
+      if(f != '.' and f != '..')
+        name = dir + '/' + f
+        if File.directory? name 
+          list += files(name)
+        else
+          list << name
+        end
+      end 
+    end
+
+    list
+  end
+end
 
 Gem::Specification.new do |spec|
   spec.name              = 'scriptlandia'
@@ -10,17 +28,15 @@ Gem::Specification.new do |spec|
   spec.description       = 'Scriptlandia Launcher for Ruby.'
   spec.email             = 'alexander.shvets@gmail.com'
 
-  candidates = Dir.glob("{docs,lib,tests,bin}/**/*")
-  spec.files = candidates.delete_if do |item|
-    item.include?("svn") || item.include?("rdoc")
-  end
-  candidates << 'configure.rb'
-  candidates << 'scriptlandia-r.gemspec'
+  spec.files = files("bin") + files("lib") + files("spec") + files("examples") +
+               %w(CHANGES configure.rb Rakefile README scriptlandia-r.gemspec TODO)
+
+  #p spec.files
 
   spec.require_paths = ["lib"]
   spec.requirements = ["none"]
   spec.bindir = "bin"
-  spec.rubygems_version = '1.3.0'
+  spec.rubygems_version = '1.3.1'
   spec.platform = Gem::Platform::RUBY
   spec.has_rdoc = false
   spec.add_dependency("rjb", ">= 1.1.6")
@@ -30,3 +46,4 @@ Gem::Specification.new do |spec|
 
   spec.summary = %q{.}
 end
+
