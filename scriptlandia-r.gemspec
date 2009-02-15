@@ -21,7 +21,7 @@ end
 Gem::Specification.new do |spec|
   spec.name              = 'scriptlandia'
   spec.rubyforge_project = 'scriptlandia-r'
-  spec.version           = '0.4.0'
+  spec.version           = '0.5.0'
   spec.author            = "Alexander Shvets"
   spec.homepage          = 'http://rubyforge.org/projects/scriptlandia-r'
   spec.date              = %q{2008-11-02}
