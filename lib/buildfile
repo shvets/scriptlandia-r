@@ -2,7 +2,7 @@
 
 require 'yaml'
 
-settings = YAML::load File.open(File.dirname(__FILE__) + '/settings.yaml')
+settings = YAML::load File.open(File.dirname(__FILE__) + '/../settings.yaml')
 
 ENV['JAVA_HOME'] = settings['java_home']
 

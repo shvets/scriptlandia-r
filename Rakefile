@@ -59,38 +59,3 @@ task :"github:validate" do
 end
 
 task :default => :rcov
-
-
-
-
-
-
-
-# Install application using the standard install.rb script.
-
-desc "Install the application"
-task :install do
-  ruby Rake.original_dir + "/install.rb"
-end
-
-# Support Tasks ------------------------------------------------------
-
-RUBY_FILES = FileList['**/*.rb'].exclude('pkg')
-
-desc "Look for TODO and FIXME tags in the code"
-task :todo do
-  RUBY_FILES.egrep(/#.*(FIXME|TODO|TBD)/)
-end
-
-desc "Look for Debugging print lines"
-task :dbg do
-  RUBY_FILES.egrep(/\bDBG|\bbreakpoint\b/)
-end
-
-desc "List all ruby files"
-task :rubyfiles do 
-  puts RUBY_FILES
-  puts FileList['bin/*'].exclude('bin/*.rb')
-end
-task :rf => :rubyfiles
-

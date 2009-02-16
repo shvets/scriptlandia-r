@@ -1,7 +1,9 @@
-#!/usr/bin/env ruby
 
 require 'rubygems'
-require 'scriptlandia'
+
+require 'language_installer'
+require 'configurer'
+require 'launcher'
 
 if(ARGV.size == 0)
   puts "Please specify script file name."
@@ -10,49 +12,10 @@ else
     if(ARGV.size < 2)
       puts "Please specify language name to be installed."
     else
-      include Config
-
-      my_bindir = CONFIG['bindir']
-
-      unless File.writable? my_bindir
-        my_bindir = [ENV['HOME'], '.gem', 'ruby', CONFIG["MAJOR"]+"."+CONFIG["MINOR"], 'bin'].join(File::SEPARATOR)
-      end
-
-      my_gems_path = [CONFIG['libdir'], 'ruby', 'gems'].join(File::SEPARATOR)
-
-      unless File.writable? my_gems_path
-        my_gems_path = [ENV['HOME'], '.gem', 'ruby'].join(File::SEPARATOR)
-      end
-
-      buildr = File.join my_bindir, 'buildr'
-
-      buildr << '.bat' if CONFIG['host_os'] =~ /mswin/i
-
-      old_ext = ENV['EXT']
-
-      ENV['EXT'] = ARGV[1]
-
-      buildfile = File.join(my_gems_path,
-                            CONFIG["MAJOR"]+"."+CONFIG["MINOR"], 
-                            'gems', name + '-' + version, 'lib', 'buildfile') 
-
-      ARGV.shift
-      ARGV.shift
-
-      ARGV.insert 0, buildfile
-      ARGV.insert 0, '-f'
-
-      require 'rubygems'
-      require 'buildr'
-      Buildr.application.run
-
-      ENV['EXT'] = old_ext
+      Scriptlandia::LanguageInstaller.new.install name, version
     end
   elsif(ARGV[0] == '--configure')
-    require File.dirname(__FILE__) + '/../configure'
-    ARGV.shift
-
-    configure()
+    Scriptlandia::Configurer.new.configure
   else
     Scriptlandia::Launcher.new.launch
   end

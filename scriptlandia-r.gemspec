@@ -1,24 +1,53 @@
 # scriptlandia-r.gemspec
 
 class Gem::Specification
-  def self.files dir
+  def self.files name
     list = []
-    Dir.new(dir).each do |f|
-      if(f != '.' and f != '..')
-        name = dir + '/' + f
-        if File.directory? name 
-          list += files(name)
-        else
-          list << name
+
+    if File.directory? name 
+      Dir.new(name).each do |filename|
+        if(filename != '.' and filename != '..')
+          list += files(name + '/' + filename)
         end
-      end 
+      end
+    else
+      list << name
     end
 
     list
   end
+
+  def self.create_zip_file dir
+    require 'zip/zip'
+
+    Zip::ZipOutputStream.open(dir + ".zip") do |zos|
+      zip zos, dir
+    end
+
+  end
+
+  def self.zip zos, dir
+    Dir.new(dir).each do |filename|
+      if(filename != '.' and filename != '..')
+        full_name = dir + '/' + filename
+
+        if File.directory? full_name
+          zip(zos, full_name)
+        else
+          # Create a new entry with some arbitrary name
+          zos.put_next_entry(dir + '/' + filename)
+          # Add the contents of the file, don't read the stuff linewise if its binary, instead use direct IO
+          zos.print IO.read(dir + '/' + filename)
+        end
+      end
+    end
+  end
+
 end
 
 Gem::Specification.new do |spec|
+  create_zip_file 'examples'
+
   spec.name              = 'scriptlandia'
   spec.rubyforge_project = 'scriptlandia-r'
   spec.version           = '0.5.1'
@@ -28,11 +57,10 @@ Gem::Specification.new do |spec|
   spec.description       = 'Scriptlandia Launcher for Ruby.'
   spec.email             = 'alexander.shvets@gmail.com'
 
-  spec.files = %w(CHANGES configure.rb Rakefile README scriptlandia-r.gemspec TODO) +
+  spec.files = %w(CHANGES Rakefile README scriptlandia-r.gemspec TODO examples.zip) +
                files("bin") + 
                files("lib") + 
-               files("spec") + 
-               files("examples")
+               files("spec")
                
   spec.require_paths = ["lib"]
   spec.requirements = ["none"]
@@ -47,4 +75,3 @@ Gem::Specification.new do |spec|
 
   spec.summary = %q{.}
 end
-
