@@ -11,10 +11,10 @@ spec_name = 'scriptlandia-r.gemspec'
 
 SPEC = Gem::Specification.load(spec_name)
 
-Rake::GemPackageTask.new(SPEC) do |pkg| 
-  pkg.need_tar = true 
-  pkg.need_zip = true
-end 
+#Rake::GemPackageTask.new(SPEC) do |pkg| 
+#  pkg.need_tar = true 
+#  pkg.need_zip = true
+#end 
 
 Spec::Rake::SpecTask.new do |task|
   task.libs << 'lib'

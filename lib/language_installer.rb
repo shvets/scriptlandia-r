@@ -4,7 +4,7 @@ module Scriptlandia
   class LanguageInstaller
     include Config
 
-    def install name, version
+    def install
       my_bindir = CONFIG['bindir']
 
       unless File.writable? my_bindir
@@ -25,9 +25,11 @@ module Scriptlandia
 
       ENV['EXT'] = ARGV[1]
 
-      buildfile = File.join(my_gems_path,
-                            CONFIG["MAJOR"]+"."+CONFIG["MINOR"], 
-                            'gems', name + '-' + version, 'lib', 'buildfile') 
+#      buildfile = File.join(my_gems_path,
+#                            CONFIG["MAJOR"]+"."+CONFIG["MINOR"], 
+#                            'gems', name + '-' + version, 'lib', 'buildfile') 
+
+      buildfile = File.join(File.dirname(__FILE__), 'buildfile')
 
       ARGV.shift
       ARGV.shift

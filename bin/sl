@@ -12,7 +12,7 @@ else
     if(ARGV.size < 2)
       puts "Please specify language name to be installed."
     else
-      Scriptlandia::LanguageInstaller.new.install name, version
+      Scriptlandia::LanguageInstaller.new.install
     end
   elsif(ARGV[0] == '--configure')
     Scriptlandia::Configurer.new.configure

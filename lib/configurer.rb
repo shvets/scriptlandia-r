@@ -4,7 +4,7 @@ require 'rubygems'
 require 'rbconfig'
 require 'find'
 require 'ftools'
-require 'rake/gempackagetask'
+#require 'rake/gempackagetask'
 
 module Scriptlandia
   class Configurer
@@ -93,8 +93,8 @@ module Scriptlandia
         File.open(tmp, "w") do |op|
           ruby = File.join($bindir, $ruby)
           op.puts "#!#{ruby} -w"
-          op.puts "name = '" + $spec.name + "'"
-          op.puts "version = '" + $spec.version.to_s + "'"            
+         # op.puts "name = '" + $spec.name + "'"
+         # op.puts "version = '" + $spec.version.to_s + "'"            
           op.puts "ENV['JAVA_HOME'] = '" + settings['java_home'].chomp + "'"
 
           op.write ip.read
