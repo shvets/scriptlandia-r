@@ -46,7 +46,7 @@ class Gem::Specification
 end
 
 Gem::Specification.new do |spec|
-  create_zip_file 'examples'
+  Gem::Specification.create_zip_file 'examples'
 
   spec.name              = 'scriptlandia'
   spec.rubyforge_project = 'scriptlandia-r'
@@ -58,9 +58,9 @@ Gem::Specification.new do |spec|
   spec.email             = 'alexander.shvets@gmail.com'
 
   spec.files = %w(CHANGES Rakefile README scriptlandia-r.gemspec TODO examples.zip) +
-               files("bin") + 
-               files("lib") + 
-               files("spec")
+               Gem::Specification.files("bin") + 
+               Gem::Specification.files("lib") + 
+               Gem::Specification.files("spec")
                
   spec.require_paths = ["lib"]
   spec.requirements = ["none"]
