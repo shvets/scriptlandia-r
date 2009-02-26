@@ -7,6 +7,35 @@ require 'spec/rake/spectask'
 require 'rake/rdoctask'
 require 'rcov/rcovtask'
 
+def create_zip_file dir
+  require 'zip/zip'
+
+  Zip::ZipOutputStream.open(dir + ".zip") do |zos|
+    zip zos, dir
+  end
+
+end
+
+def zip zos, dir
+  Dir.new(dir).each do |filename|
+    if(filename != '.' and filename != '..')
+      full_name = dir + '/' + filename
+
+      if File.directory? full_name
+        zip(zos, full_name)
+      else
+        # Create a new entry with some arbitrary name
+        zos.put_next_entry(dir + '/' + filename)
+        # Add the contents of the file, don't read the stuff linewise if its binary, instead use direct IO
+        zos.print IO.read(dir + '/' + filename)
+      end
+    end
+  end
+end
+
+create_zip_file 'examples'
+
+
 spec_name = 'scriptlandia-r.gemspec'
 
 SPEC = Gem::Specification.load(spec_name)
