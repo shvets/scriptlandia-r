@@ -33,6 +33,22 @@ def zip zos, dir
   end
 end
 
+def files name
+  list = []
+
+  if File.directory? name 
+    Dir.new(name).each do |filename|
+      if(filename != '.' and filename != '..')
+        list += files(name + '/' + filename)
+      end
+    end
+  else
+    list << name
+  end
+
+  list
+end
+
 create_zip_file 'examples'
 
 
