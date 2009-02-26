@@ -11,10 +11,10 @@ spec_name = 'scriptlandia-r.gemspec'
 
 SPEC = Gem::Specification.load(spec_name)
 
-#Rake::GemPackageTask.new(SPEC) do |pkg| 
+Rake::GemPackageTask.new(SPEC) do |pkg| 
 #  pkg.need_tar = true 
 #  pkg.need_zip = true
-#end 
+end 
 
 Spec::Rake::SpecTask.new do |task|
   task.libs << 'lib'
@@ -38,23 +38,9 @@ end
 
 desc "test gem compatibility with github"
 task :"github:validate" do
-  require 'yaml'
+  SPEC.validate
    
-#p FileList['{docs,lib,tests,bin}/**/*']
-
-  require 'rubygems/specification'
-  data = File.read(spec_name)
-  spec = nil
-   
-  if data !~ %r{!ruby/object:Gem::Specification}
-    Thread.new { spec = eval("$SAFE = 3\n#{data}") }.join
-  else
-    spec = YAML.load(data)
-  end
-   
-  spec.validate
-   
-  puts spec
+  puts SPEC
   puts "OK"
 end
 
