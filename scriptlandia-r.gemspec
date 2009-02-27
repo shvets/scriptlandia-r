@@ -5,7 +5,7 @@
 Gem::Specification.new do |spec|
   spec.name     = 'scriptlandia'
   spec.version  = '0.5.6'
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  spec.required_rubygems_version = Gem::Requirement.new(">= 0") if spec.respond_to? :required_rubygems_version=
 
   spec.authors  = ["Alexander Shvets"]
   spec.date     = %q{2009-02-14}
@@ -45,8 +45,8 @@ Gem::Specification.new do |spec|
   spec.rubygems_version = '1.3.1'
   spec.summary = %q{.}
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 2
+  if spec.respond_to? :specification_version then
+    spec.specification_version = 2
   end
 
   spec.executables = ['sl']
