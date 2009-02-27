@@ -38,7 +38,9 @@ pnuts:      [pnut]
 
 ptilde:     [p7e, p7ei]
 
-jruby:       [rb, ruby]
+jruby:      [rb, ruby]
+
+jscheme:    [scm, scheme]
 
 scala:      [scala]
 

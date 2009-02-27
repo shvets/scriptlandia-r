@@ -1,0 +1,6 @@
+jvmargs:
+
+artifacts:
+  jscheme: jscheme:jscheme:jar:7.2
+
+start_class: org.sf.scriptlandia.JSchemeStarter

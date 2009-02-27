@@ -1,0 +1,8 @@
+jvmargs:
+
+artifacts:
+  scriptella-core: scriptella:scriptella-core:jar:1.0beta
+  scriptella-core: scriptella:scriptella-drivers:jar:1.0beta
+  scriptella-core: scriptella:scriptella-tools:jar:1.0beta
+
+start_class: scriptella.tools.launcher.EtlLauncher

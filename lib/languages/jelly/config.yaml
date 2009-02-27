@@ -1,0 +1,24 @@
+jvmargs:
+
+artifacts:
+  commons-jelly: commons-jelly:commons-jelly:jar:1.0
+  commons-jelly-tags-ant: commons-jelly:commons-jelly-tags-ant:jar:1.1
+  ant: org.apache.ant:ant:jar:1.7.1
+  ant-launcher: org.apache.ant:ant-launcher:jar:1.7.1
+  ant-junit: org.apache.ant:ant-junit:jar:1.7.1
+  commons-jelly-tags-bean: commons-jelly:commons-jelly-tags-bean:jar:1.0
+  commons-jelly-tags-dynabean: commons-jelly:commons-jelly-tags-dynabean:jar:1.0
+  commons-jelly-tags-fmt: commons-jelly:commons-jelly-tags-fmt:jar:1.0
+  commons-jelly-tags-interaction: commons-jelly:commons-jelly-tags-interaction:jar:1.0
+  commons-jelly-tags-junit: commons-jelly:commons-jelly-tags-junit:jar:1.0
+  commons-jelly-tags-xml: commons-jelly:commons-jelly-tags-xml:jar:1.0
+  commons-jelly-tags-util: commons-jelly:commons-jelly-tags-util:jar:1.1.1
+  commons-jelly-tags-beanshell: commons-jelly:commons-jelly-tags-beanshell:jar:1.0
+  commons-jelly-tags-sql: commons-jelly:commons-jelly-tags-sql:jar:1.0
+  commons-jelly-tags-swing: commons-jelly:commons-jelly-tags-swing:jar:1.0
+  commons-jelly-tags-swt: commons-jelly:commons-jelly-tags-swt:jar:1.0
+  commons-jelly-tags-log: commons-jelly:commons-jelly-tags-log:jar:1.0
+  commons-logging: commons-logging:commons-logging:jar:1.0.4
+  dom4j: dom4j:dom4j:jar:1.6.1
+
+start_class: org.apache.commons.jelly.Jelly

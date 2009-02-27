@@ -40,3 +40,7 @@ To install dependencies (jar files) for the language, run this command:
 
     $ sl --install bsh
     $ sl --install scala
+
+If you have GUI in your script, you can use --wait flag to wait for GUI thread:
+
+   $ sl Hello.bsh --wait
