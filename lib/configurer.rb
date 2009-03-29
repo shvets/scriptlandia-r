@@ -15,9 +15,9 @@ module Scriptlandia
 
       prepare()
 
-      install_settings(File.dirname(__FILE__) + "/../" + "lib/settings.yaml", $my_libdir + "/../settings.yaml")
+      install_settings(File.dirname(__FILE__) + "/../" + "lib/settings.yaml", $my_libdir + "/settings.yaml")
 
-      settings = YAML::load File.open($my_libdir + "/../settings.yaml")
+      settings = YAML::load File.open($my_libdir + "/settings.yaml")
 
       install_file(File.dirname(__FILE__) + "/../bin/sl.bat", $my_bindir, "/sl.bat", settings) if CONFIG['host_os'] =~ /mswin/
 
@@ -48,7 +48,7 @@ module Scriptlandia
       $spec = Gem::Specification.load(File.dirname(__FILE__) + "/../" + 'scriptlandia-r.gemspec')
 
       $my_gem_path = File.join(my_gems_path, CONFIG["MAJOR"]+"."+CONFIG["MINOR"], 
-                               'gems', $spec.name + '-' + $spec.version.to_s)
+                               'gems', 'shvets-' + $spec.name + '-' + $spec.version.to_s)
 
       $my_libdir = File.join($my_gem_path, 'lib')
     end

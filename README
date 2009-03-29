@@ -32,6 +32,11 @@ After the installation you have to configure the gem:
 
 You have to enter the location of Java Home and Jar Repository Location, e.g.:
 
+    $ Enter Java Home:
+    $ c:/Java/jdk1.5.0
+
+    $ Enter Repository Home:
+    $ c:/Work/maven-repository
 
 Now you can run scripts:
 
