@@ -18,18 +18,20 @@ or
     $ sudo env JAVA_HOME=$JAVA_HOME gem install rjb 
     $ sudo env JAVA_HOME=$JAVA_HOME gem install buildr 
 
-Scriptlandia-R is intended to be installed via the RubyGems [http://rubyforge.org/projects/rubygems/] system.
-To get the latest version, simply enter the following into your command prompt:
+On Windows only this version of rjb is supported:
+
+    $ gem install rjb -v 1.1.6
+
+To install scriptlandia:
 
     $ sudo gem install shvets-scriptlandia
 
-You must have RubyGems [http://rubyforge.org/projects/rubygems/] installed for the above to work.
-
-After installation you have to configure the gem:
+After the installation you have to configure the gem:
 
     $ sudo sl --configure 
 
-You have to enter the location of Java Home and Jar Repository Location.
+You have to enter the location of Java Home and Jar Repository Location, e.g.:
+
 
 Now you can run scripts:
 

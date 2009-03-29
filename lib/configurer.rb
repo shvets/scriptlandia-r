@@ -1,9 +1,9 @@
 # installer.rb
 
-require 'rubygems'
+require 'rubygems' unless RUBY_VERSION =~ /1.9.*/
 require 'rbconfig'
 require 'find'
-require 'ftools'
+require 'fileutils'
 #require 'rake/gempackagetask'
 
 module Scriptlandia
@@ -19,7 +19,7 @@ module Scriptlandia
 
       settings = YAML::load File.open($my_libdir + "/../settings.yaml")
 
-      #install_file("bin/sl.bat", $my_bindir, "sl.bat", settings) if CONFIG['host_os'] =~ /mswin/
+      install_file("bin/sl.bat", $my_bindir, "sl.bat", settings) if CONFIG['host_os'] =~ /mswin/
 
       install_file_with_header($my_gem_path + "/bin/sl", $my_gem_path + "/bin/sl", settings)
     end

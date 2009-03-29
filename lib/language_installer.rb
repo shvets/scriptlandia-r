@@ -1,5 +1,7 @@
 # language_installer.rb
 
+require 'rbconfig'
+
 module Scriptlandia
   class LanguageInstaller
     include Config

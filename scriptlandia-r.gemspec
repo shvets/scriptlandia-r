@@ -1,14 +1,13 @@
 # -*- encoding: utf-8 -*-
 
-# scriptlandia-r.gemspec
-
 Gem::Specification.new do |spec|
   spec.name     = 'scriptlandia'
-  spec.version  = '0.5.6'
+  spec.version  = '0.7.1'
+
   spec.required_rubygems_version = Gem::Requirement.new(">= 0") if spec.respond_to? :required_rubygems_version=
 
   spec.authors  = ["Alexander Shvets"]
-  spec.date     = %q{2009-02-14}
+  spec.date     = %q{2009-03-29}
   spec.description  = 'Scriptlandia Launcher in Ruby.'
   spec.email    = 'alexander.shvets@gmail.com'
 
@@ -43,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.rubyforge_project = 'scriptlandia-r'
   spec.rubygems_version = '1.3.1'
-  spec.summary = %q{.}
+  spec.summary = %q{Scriptlandia Launcher in Ruby.}
 
   if spec.respond_to? :specification_version then
     spec.specification_version = 2
@@ -54,6 +53,6 @@ Gem::Specification.new do |spec|
   spec.requirements = ["none"]
   spec.bindir = "bin"
 
-  #spec.add_dependency("rjb", ">= 1.1.6")
-  #spec.add_dependency("buildr", ">= 1.3.3")
+  spec.add_dependency("rjb", ">= 1.1.6")
+  spec.add_dependency("buildr", ">= 1.3.3")
 end
