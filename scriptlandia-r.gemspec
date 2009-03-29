@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name     = 'scriptlandia'
-  spec.version  = '0.7.1'
+  spec.version  = '0.7.2'
 
   spec.required_rubygems_version = Gem::Requirement.new(">= 0") if spec.respond_to? :required_rubygems_version=
 

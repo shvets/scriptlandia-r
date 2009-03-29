@@ -19,7 +19,7 @@ module Scriptlandia
 
       settings = YAML::load File.open($my_libdir + "/../settings.yaml")
 
-      install_file("bin/sl.bat", $my_bindir, "sl.bat", settings) if CONFIG['host_os'] =~ /mswin/
+      install_file(File.dirname(__FILE__) + "/../bin/sl.bat", $my_bindir, "/sl.bat", settings) if CONFIG['host_os'] =~ /mswin/
 
       install_file_with_header($my_gem_path + "/bin/sl", $my_gem_path + "/bin/sl", settings)
     end
@@ -69,7 +69,7 @@ module Scriptlandia
     end
 
     def install_file from_file, to_dir, to_file, settings
-      File.makedirs to_dir
+      FileUtils.makedirs to_dir
 
       #File::install(from_file, File.join(to_dir, to_file), 0755, true)
 
@@ -82,8 +82,8 @@ module Scriptlandia
         end
       end
 
-      File::install(tmp, to_file, 0755, true)
-      File::unlink(tmp)
+      FileUtils::install(tmp, to_file, :mode => 0755, :verbose => true)
+      FileUtils::safe_unlink(tmp)
     end
 
     def install_file_with_header(from_file, to_file, settings)
@@ -101,8 +101,8 @@ module Scriptlandia
         end
       end
 
-      File::install(tmp, to_file, 0755, true)
-      File::unlink(tmp)
+      FileUtils::install(tmp, to_file, :mode => 0755, :verbose => true)
+      FileUtils::safe_unlink(tmp)
     end
 
     def install_settings from_file, to_file
